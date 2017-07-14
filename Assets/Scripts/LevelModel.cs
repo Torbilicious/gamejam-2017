@@ -6,7 +6,21 @@ using UnityEngine;
 
 public class LevelModel : MonoBehaviour
 {
+    [SerializeField]
+    private static LevelModel instance;
+
+    public static LevelModel Instance
+    {
+        get { return instance; }
+    }
+
     private Tile[][] tiles;
+
+    public Tile[][] Tiles
+    {
+        set { tiles = value; }
+    }
+
     private const char SEPARATOR_X = ',', SEPARATOR_Y = '\n';
 
     public IEnumerator SerializeAsync(Action<String> onComplete)
@@ -25,20 +39,26 @@ public class LevelModel : MonoBehaviour
         onComplete.Invoke(sb.ToString());
     }
 
-    public IEnumerator DeserializeAsync(string serialized, Action<bool> onComplete)
+    public IEnumerator DeserializeAsync(string serialized, Action onComplete)
     {
-        bool error = false;
-        string[] s = serialized.Split(SEPARATOR_Y);
-        tiles = new Tile[s.Length][];
-        for (int i = 0; i < tiles.Length; i++)
+        string[] rows = serialized.Split(SEPARATOR_Y);
+        tiles = new Tile[rows.Length][];
+        for (int row = 0; row < tiles.Length; row++)
         {
-            string[] row = s[i].Split(SEPARATOR_X);
-            for (int j = 0; j < row.Length; j++)
+            string[] cols = rows[row].Split(SEPARATOR_X);
+            tiles[row] = new Tile[cols.Length];
+            for (int col = 0; col < cols.Length; col++)
             {
-                tiles[i][j] = Tile.Parse(row[i]);
+                tiles[row][col] = Tile.Parse(cols[col]);
+                tiles[row][col].transform.position = new Vector3(col, 0, row);
             }
         }
         yield return null;
-        onComplete.Invoke(true);
+        onComplete.Invoke();
+    }
+
+    private void Start()
+    {
+        instance = this;
     }
 }

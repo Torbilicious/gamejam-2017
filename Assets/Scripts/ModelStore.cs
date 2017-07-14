@@ -2,15 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ModelStore : MonoBehaviour {
+public class ModelStore : MonoBehaviour
+{
+    [SerializeField]
+    private static ModelStore instance;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    public static ModelStore Instance
+    {
+        get { return instance; }
+    }
+
+    // Use this for initialization
+    private void Start()
+    {
+        instance = this;
+    }
+
+    // Update is called once per frame
+    private void Update()
+    {
+    }
 }

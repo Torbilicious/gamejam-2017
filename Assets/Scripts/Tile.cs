@@ -1,11 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
     [SerializeField]
-    private Transform wallNorth, wallEast, wallSouth, wallWest;
+    private Transform baseTile, wall;
+
+    [SerializeField]
+    private bool wallNorth, wallEast, wallSouth, wallWest;
+
+    [SerializeField]
+    private GameObject placeable;
+
+    [SerializeField]
+    [Range(0, 1)]
+    private float onFire = 0;
 
     // Use this for initialization
     private void Start()
@@ -19,7 +30,13 @@ public class Tile : MonoBehaviour
 
     public override string ToString()
     {
-        return "Tile";
+        StringBuilder sb = new StringBuilder();
+        sb.Append(wallNorth ? '1' : '0');
+        sb.Append(wallEast ? '1' : '0');
+        sb.Append(wallSouth ? '1' : '0');
+        sb.Append(wallWest ? '1' : '0');
+        sb.Append("basic");
+        return sb.ToString();
     }
 
     public static Tile Parse(string serialized)
