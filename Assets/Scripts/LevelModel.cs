@@ -14,7 +14,7 @@ public class LevelModel : MonoBehaviour
         get { return instance; }
     }
 
-    private Tile[][] tiles;
+    private Tile[][] tiles = { };
 
     public Tile[][] Tiles
     {
@@ -23,23 +23,24 @@ public class LevelModel : MonoBehaviour
 
     private const char SEPARATOR_X = ',', SEPARATOR_Y = '\n';
 
-    public IEnumerator SerializeAsync(Action<String> onComplete)
+    public String Serialize()
     {
         StringBuilder sb = new StringBuilder();
         foreach (Tile[] row in tiles)
         {
+            if (row == null) continue;
             if (sb.Length > 0) sb.Append(SEPARATOR_Y);
             foreach (Tile tile in row)
             {
+                if (tile == null) continue;
                 if (sb.Length > 0) sb.Append(SEPARATOR_X);
                 sb.Append(tile.ToString());
             }
         }
-        yield return null;
-        onComplete.Invoke(sb.ToString());
+        return sb.ToString();
     }
 
-    public IEnumerator DeserializeAsync(string serialized, Action onComplete)
+    public void DeserializeAsync(string serialized)
     {
         string[] rows = serialized.Split(SEPARATOR_Y);
         tiles = new Tile[rows.Length][];
@@ -53,8 +54,6 @@ public class LevelModel : MonoBehaviour
                 tiles[row][col].transform.position = new Vector3(col, 0, row);
             }
         }
-        yield return null;
-        onComplete.Invoke();
     }
 
     private void Start()
