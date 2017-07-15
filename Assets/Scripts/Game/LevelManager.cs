@@ -12,7 +12,7 @@ public class LevelManager : MonoBehaviour
     private bool _levelLoaded = false;
     private int _lemmingCount;
     public static LevelManager Instance;
-    public string LevelName = "level";
+    public static string LevelName = "level";
 
     public static int Points = 0;
 
@@ -77,10 +77,15 @@ public class LevelManager : MonoBehaviour
             lemming.position = new Vector3(0, 1, 0);
 
             Transform lemming2 = Instantiate(ModelStore.Instance.baseLemming);
-            lemming2.position = new Vector3(2, 1, 0);
+            lemming2.position = new Vector3(1, 1, 0);
+            Transform lemming3 = Instantiate(ModelStore.Instance.baseLemming);
+            lemming3.position = new Vector3(2, 1, 0);
         }
 
-        score.text = string.Format("{0}/{1}", Points, _lemmingCount);
+        if(_levelLoaded)
+        {
+            score.text = string.Format("{0}/{1}", Points, _lemmingCount);
+        }
     }
 
     public void Exit2LevelMenu()

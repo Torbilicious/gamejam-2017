@@ -61,15 +61,7 @@ public class Lemming : MonoBehaviour
         GetComponent<Animator>().Play("Lemming_Walking", -1, Random.Range(0.0f, 1.0f));
     }
 
-    public void OnWaypointReached()
-    {
-        _state = LemmingState.WaypointReached;
-    }
-
-    public void OnEnterTile()
-    {
-        //TODO: Get current tile here
-    }
+   
 
     #endregion Public Methods
 
@@ -161,7 +153,8 @@ public class Lemming : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        FindNextWaypoint(true);
+        if(other.gameObject.name.StartsWith("Lemming"))
+            FindNextWaypoint(true);
     }
 
     private void FindNextWaypoint(bool ignoreLast = false)
@@ -190,7 +183,16 @@ public class Lemming : MonoBehaviour
 
     private void RunToWaypoint()
     {
-        Vector3 targetPos = _nextTile.transform.position + new Vector3(0, 1, 0);
+        Vector3 targetPos = Vector3.zero;
+        try
+        {
+            targetPos = _nextTile.transform.position + new Vector3(0, 1, 0);
+        }
+        catch
+        {
+            LevelManager.Points++;
+            Destroy(this.gameObject);
+        }
         float step = this.Speed * Time.deltaTime;
         transform.position = Vector3.MoveTowards(transform.position, targetPos, step);
 

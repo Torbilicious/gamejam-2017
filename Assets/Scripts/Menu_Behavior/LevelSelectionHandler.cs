@@ -21,7 +21,37 @@ public class LevelSelectionHandler : MonoBehaviour
 
     public void OnButtonLevel1Click()
     {
-        LevelManager.Instance.LevelName = "level";
+        LevelManager.LevelName = "level1";
         LoadLevel();
+    }
+
+    public void OnButtonLevel2Click()
+    {
+        LevelManager.LevelName = "level2";
+        LoadLevel();
+    }
+
+    public void OnButtonLevel3Click()
+    {
+        LevelManager.LevelName = "level3";
+        LoadLevel();
+    }
+
+    public void OnButtonLevel4Click()
+    {
+        //LevelManager.Instance.LevelName = "level4";
+        //LoadLevel();
+    }
+
+    public void OnButtonLevel5Click()
+    {
+        //LevelManager.Instance.LevelName = "level5";
+        //LoadLevel();
+    }
+
+    public void OnButtonLevel6Click()
+    {
+        //LevelManager.Instance.LevelName = "level6";
+        //LoadLevel();
     }
 }
