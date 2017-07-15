@@ -9,8 +9,7 @@ public class Tile : MonoBehaviour
     [SerializeField]
     public bool WallNorth, WallEast, WallSouth, WallWest;
 
-    [SerializeField]
-    private GameObject placeable;
+    private Transform Placeable;
 
     [SerializeField]
     [Range(0, 1)]
@@ -19,6 +18,7 @@ public class Tile : MonoBehaviour
     // Use this for initialization
     private void Start()
     {
+        Placeable = GameObject.Find(gameObject.name + "/Placeable").transform;
     }
 
     // Update is called once per frame
@@ -33,7 +33,33 @@ public class Tile : MonoBehaviour
         sb.Append(WallEast ? '1' : '0');
         sb.Append(WallSouth ? '1' : '0');
         sb.Append(WallWest ? '1' : '0');
-        sb.Append("basic");
+        if (Placeable == null)
+        {
+            Placeable = GameObject.Find(gameObject.name + "/Placeable").transform;
+        }
+        if (Placeable.childCount != 0)
+        {
+            sb.Append(Placeable.GetChild(0).name.Trim());
+            switch ((int)Placeable.GetChild(0).localEulerAngles.y)
+            {
+                case 0:
+                    sb.Append('N');
+                    break;
+
+                case 90:
+                    sb.Append('E');
+                    break;
+
+                case 180:
+                    sb.Append('S');
+                    break;
+
+                case 270:
+                    sb.Append('W');
+                    break;
+            }
+        }
+
         return sb.ToString();
     }
 
@@ -47,16 +73,51 @@ public class Tile : MonoBehaviour
 
     public static Tile Parse(string serialized)
     {
-        if (serialized.Length < 5) return null;
+        if (serialized.Length < 4) return null;
         Transform o = Instantiate(ModelStore.Instance.baseTile);
         o.name += (long)(DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds;
-        Tile tile = o.gameObject.AddComponent<Tile>();
+        Tile tile = o.GetComponent<Tile>();
+        if (tile == null) tile = o.gameObject.AddComponent<Tile>();
         char[] ser = serialized.ToCharArray();
         tile.WallNorth = ser[0] == '1';
         tile.WallEast = ser[1] == '1';
         tile.WallSouth = ser[2] == '1';
         tile.WallWest = ser[3] == '1';
+        char orientation = ser[ser.Length - 1];
         tile.ApplyWalls();
+        if (serialized.Length == 4) return tile;
+        serialized = serialized.Substring(4, ser.Length - 5);
+        if (ser.Length > 0)
+        {
+            Transform t = ModelStore.Instance.Get(serialized);
+            if (t != null)
+            {
+                t = Instantiate(t);
+                tile.Placeable = GameObject.Find(tile.name + "/Placeable").transform;
+                t.SetParent(tile.Placeable);
+                t.localPosition = Vector3.zero;
+                t.parent = tile.Placeable;
+                t.name = t.name.Replace("(Clone)", "").Trim();
+                switch (orientation)
+                {
+                    case 'N':
+                        t.localRotation = Quaternion.Euler(Vector3.up * 0);
+                        break;
+
+                    case 'E':
+                        t.localRotation = Quaternion.Euler(Vector3.up * 90);
+                        break;
+
+                    case 'S':
+                        t.localRotation = Quaternion.Euler(Vector3.up * 180);
+                        break;
+
+                    case 'W':
+                        t.localRotation = Quaternion.Euler(Vector3.up * 270);
+                        break;
+                }
+            }
+        }
         return tile;
     }
 }

@@ -55,6 +55,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4794950066242674}
+  - component: {fileID: 114567989475176418}
   m_Layer: 0
   m_Name: Tile
   m_TagString: Untagged
@@ -222,7 +223,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1377431496282296}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 4.192078, y: 6.0545273, z: -11.1543255}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4213824443049474}
@@ -512,3 +513,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114567989475176418
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1377431496282296}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac069872a88192442bce59ac981110dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WallNorth: 0
+  WallEast: 0
+  WallSouth: 0
+  WallWest: 0
+  placeable: {fileID: 0}
+  onFire: 0

@@ -44,15 +44,21 @@ public class LemmingAI : MonoBehaviour {
     private Tile[] _sourroundingTiles;
 
     private Tile _currentTile;
+    private Tile _nextTile;
 
     /// <summary>
     /// The lemming is currently in this state.
     /// </summary>
-    private LemmingState _state;
+    private LemmingState _state = LemmingState.Idle;
 
     private RunDirection _lastRunDirection;
 
     private Lemming _lemmingScript;
+
+    /// <summary>
+    /// A reference to all tiles on the game level
+    /// </summary>
+    private static Tile[] _tiles;
 
     #endregion
 
@@ -73,15 +79,42 @@ public class LemmingAI : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
+        _tiles = new Tile[0];
         _sourroundingTiles = new Tile[9];
         _currentTile = null;
+        _nextTile = null;
         _lemmingScript = (Lemming)LemmingScript;
 
     }
 	
 	// Update is called once per frame
 	void Update ()
-	{
+    {
+        if(_tiles.Length == 0)
+        {
+            _tiles = FindObjectsOfType<Tile>();
+            return;
+        }
+
+        float shortestDistance = float.MaxValue;
+
+        //Find the tile we are currently standing on
+        foreach (Tile[] innerTiles in LevelModel.Instance.Tiles)
+        {
+            foreach (Tile tile in innerTiles)
+            {
+                if (tile != null)
+                {
+                    float distance = Vector3.Distance(tile.gameObject.transform.position, this.gameObject.transform.position);
+                    if (distance < shortestDistance)
+                    {
+                        shortestDistance = distance;
+                        _currentTile = tile;
+                    }
+                }
+            }
+        }
+
 	    QueryFireState();
         
         switch (_state)
@@ -123,21 +156,58 @@ public class LemmingAI : MonoBehaviour {
 
             do
             {
-                nextDirection = (RunDirection)UnityEngine.Random.Range((int)possibleDirection[0], (int)possibleDirection[possibleDirection.Length]);
+                nextDirection = (RunDirection)UnityEngine.Random.Range((int)possibleDirection[0], (int)possibleDirection[possibleDirection.Length - 1] + 1);
             }
             while (!CanRunTo(nextDirection));
 
             SetNextWayPoint(nextDirection);
             _lastRunDirection = nextDirection;
-            _state = LemmingState.RunningToWaypoint;
+        }
+
+        _state = LemmingState.RunningToWaypoint;
+
+        //Find the next tile
+        Vector3 currentTilePos = _currentTile.gameObject.transform.position;
+
+        switch (_lastRunDirection)
+        {
+            case RunDirection.North:
+                Debug.Log("AI: Running North");
+                _nextTile = LevelModel.Instance.Tiles[(int)currentTilePos.z + 1][(int)currentTilePos.x];
+                break;
+            case RunDirection.South:
+                Debug.Log("AI: Running South");
+                _nextTile = LevelModel.Instance.Tiles[(int)currentTilePos.z - 1][(int)currentTilePos.x];
+                break;
+            case RunDirection.East:
+                Debug.Log("AI: Running East");
+                _nextTile = LevelModel.Instance.Tiles[(int)currentTilePos.z][(int)currentTilePos.x + 1];
+                break;
+            case RunDirection.West:
+                Debug.Log("AI: Running West");
+                _nextTile = LevelModel.Instance.Tiles[(int)currentTilePos.z][(int)currentTilePos.x - 1];
+                break;
         }
     }
 
     private void RunToWaypoint()
     {
+        Vector3 targetPos = _nextTile.transform.position + new Vector3(0, 1, 0);
         float step = _lemmingScript.Speed * Time.deltaTime;
-        transform.position = Vector3.MoveTowards(transform.position, _currentTile.transform.position, step);
-        transform.LookAt(_currentTile.transform);
+        transform.position = Vector3.MoveTowards(transform.position, targetPos, step);
+
+        Vector3 relativePos = targetPos - this.gameObject.transform.position;
+        if (relativePos != Vector3.zero)
+        {
+            relativePos.y = 0;
+            Quaternion rotation = Quaternion.LookRotation(relativePos);
+            this.gameObject.transform.rotation = Quaternion.Slerp(rotation, this.gameObject.transform.rotation, 0.001f);
+        }
+
+        if (transform.position == targetPos)
+        {
+            _state = LemmingState.WaypointReached;
+        }
     }
 
     private void RefreshSourroundingTiles()
@@ -148,7 +218,6 @@ public class LemmingAI : MonoBehaviour {
 
     private bool CanRunTo(RunDirection direction)
     {
-        return false;
         switch(direction)
         {
             case RunDirection.North:
@@ -167,6 +236,8 @@ public class LemmingAI : MonoBehaviour {
     {
         //TODO: check here if there is a placeable on the current tile
         //set LemmingSTate.Idle if no interaction is possible
+
+        _state = LemmingState.Idle;
     }
 
     private void SetNextWayPoint(RunDirection direction)

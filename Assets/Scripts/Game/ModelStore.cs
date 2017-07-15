@@ -5,17 +5,13 @@ using UnityEngine;
 public class ModelStore : MonoBehaviour
 {
     [SerializeField]
-    public struct Spawnable
-    {
-        public string key;
-        public Transform transform;
-    }
-
-    [SerializeField]
     public Transform baseTile;
 
     [SerializeField]
-    private Spawnable[] spawnables;
+    public Transform baseLemming;
+
+    [SerializeField]
+    private Transform[] spawnables;
 
     [SerializeField]
     private static ModelStore instance;
@@ -32,11 +28,11 @@ public class ModelStore : MonoBehaviour
         instance = this;
     }
 
-    public Transform Get(string key)
+    public Transform Get(string name)
     {
-        foreach (Spawnable spawnable in spawnables)
+        foreach (Transform spawnable in spawnables)
         {
-            if (key.Equals(spawnable.key)) return spawnable.transform;
+            if (spawnable.name.Equals(name)) return spawnable;
         }
         return null;
     }

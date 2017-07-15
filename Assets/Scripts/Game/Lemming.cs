@@ -8,7 +8,7 @@ public class Lemming : MonoBehaviour
     [SerializeField]
     private float sanity = 1, courage = 1, health = 1;
 
-    public float Speed = 5.0f;
+    public float Speed = 1.0f;
 
     // Use this for initialization
     private void Start()
