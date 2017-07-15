@@ -78,6 +78,11 @@ public class Lemming : MonoBehaviour
 
     private void Update()
     {
+        if(LevelModel.Instance == null)
+        {
+            return;
+        }
+
         float shortestDistance = float.MaxValue;
 
         //Find the tile we are currently standing on

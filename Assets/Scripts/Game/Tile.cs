@@ -17,6 +17,8 @@ public class Tile : MonoBehaviour
     [Range(0, 1)]
     private float onFire;
 
+    private RunDirection placeableDirection;
+
     private bool HasPlaceable
     {
         get
@@ -142,18 +144,22 @@ public class Tile : MonoBehaviour
                 switch (orientation)
                 {
                     case 'N':
+                        tile.placeableDirection = RunDirection.North;
                         t.localRotation = Quaternion.Euler(Vector3.up * 0);
                         break;
 
                     case 'E':
+                        tile.placeableDirection = RunDirection.East;
                         t.localRotation = Quaternion.Euler(Vector3.up * 90);
                         break;
 
                     case 'S':
+                        tile.placeableDirection = RunDirection.South;
                         t.localRotation = Quaternion.Euler(Vector3.up * 180);
                         break;
 
                     case 'W':
+                        tile.placeableDirection = RunDirection.West;
                         t.localRotation = Quaternion.Euler(Vector3.up * 270);
                         break;
                 }
@@ -176,11 +182,7 @@ public class Tile : MonoBehaviour
         {
             if (HasPlaceable)
             {
-                RunDirection direction;
-                if (RunDirectionHelper.ToDirection(transform.GetChild(0).localRotation.y, out direction))
-                {
-                    directions[direction] = false;
-                }
+                directions[placeableDirection] = false;
             }
         }
         catch { }
