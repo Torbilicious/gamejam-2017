@@ -2,28 +2,33 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
+using NUnit.Framework.Constraints;
 using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
-    [SerializeField]
-    public bool WallNorth, WallEast, WallSouth, WallWest;
+    [SerializeField] public bool WallNorth, WallEast, WallSouth, WallWest;
 
-    private Transform Placeable;
+    [SerializeField] private GameObject Placeable;
 
-    [SerializeField]
-    [Range(0, 1)]
-    private float onFire = 0;
+    [SerializeField] [Range(0, 1)] private float onFire;
 
-    // Use this for initialization
-    private void Start()
+    private bool HasPlaceable
     {
-        Placeable = GameObject.Find(gameObject.name + "/Placeable").transform;
+        get
+        {
+            if (Placeable == null)
+            {
+                return false;
+            }
+            return Placeable.transform.childCount == 0;
+        }
     }
 
-    // Update is called once per frame
-    private void Update()
+    private void Start()
     {
+        new RunDirectionHelper();
+        Placeable = GameObject.Find(gameObject.name + "/Placeable");
     }
 
     public override string ToString()
@@ -35,12 +40,12 @@ public class Tile : MonoBehaviour
         sb.Append(WallWest ? '1' : '0');
         if (Placeable == null)
         {
-            Placeable = GameObject.Find(gameObject.name + "/Placeable").transform;
+            Placeable = GameObject.Find(gameObject.name + "/Placeable");
         }
-        if (Placeable.childCount != 0)
+        if (Placeable.transform.childCount != 0)
         {
-            sb.Append(Placeable.GetChild(0).name.Trim());
-            switch ((int)Placeable.GetChild(0).localEulerAngles.y)
+            sb.Append(Placeable.transform.GetChild(0).name.Trim());
+            switch ((int)Placeable.transform.GetChild(0).localEulerAngles.y)
             {
                 case 0:
                     sb.Append('N');
@@ -93,10 +98,10 @@ public class Tile : MonoBehaviour
             if (t != null)
             {
                 t = Instantiate(t);
-                tile.Placeable = GameObject.Find(tile.name + "/Placeable").transform;
-                t.SetParent(tile.Placeable);
+                tile.Placeable = GameObject.Find(tile.name + "/Placeable");
+                t.SetParent(tile.Placeable.transform);
                 t.localPosition = Vector3.zero;
-                t.parent = tile.Placeable;
+                t.parent = tile.Placeable.transform;
                 t.name = t.name.Replace("(Clone)", "").Trim();
                 switch (orientation)
                 {
@@ -119,5 +124,24 @@ public class Tile : MonoBehaviour
             }
         }
         return tile;
+    }
+
+    public Dictionary<RunDirection, bool> QueryDirections()
+    {
+        var directions = new Dictionary<RunDirection, bool>
+        {
+            {RunDirection.North, !WallNorth},
+            {RunDirection.East, !WallEast},
+            {RunDirection.South, !WallSouth},
+            {RunDirection.West, !WallWest}
+        };
+        
+        if (HasPlaceable)
+        {
+            var blockedDirection = RunDirectionHelper.ToDirection(transform.GetChild(0).localRotation.y);
+            directions[blockedDirection] = false;
+        }
+
+        return directions;
     }
 }
