@@ -18,6 +18,7 @@ public class LemmingAI : MonoBehaviour {
         Idle,
         RunningToWaypoint,
         WaypointReached,
+        Burning
     }
 
     #endregion
@@ -83,6 +84,9 @@ public class LemmingAI : MonoBehaviour {
     {
         switch (_state)
         {
+            case LemmingState.Burning:
+                GetComponent<Animation>().Play("Lemming_Burning");
+                break;
             case LemmingState.Idle:
                 FindNextWaypoint();
                 break;    
