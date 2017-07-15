@@ -67,7 +67,12 @@ public class Tile : MonoBehaviour
 
     internal void Ignite()
     {
-        if (onFire < 0.05f) onFire += 0.1f;
+        if (onFire < 0.05f)
+        {
+            onFire += 0.1f;
+            Color color = transform.GetChild(0).gameObject.GetComponent<Renderer>().material.color;
+            transform.GetChild(0).gameObject.GetComponent<Renderer>().material.color = new Color(color.r * 0.2f, color.g * 0.1f, color.b * 0.1f);
+        }
     }
 
     public override string ToString()
