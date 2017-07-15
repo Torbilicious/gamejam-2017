@@ -199,6 +199,8 @@ GameObject:
   - component: {fileID: 1107916224}
   - component: {fileID: 1107916223}
   - component: {fileID: 1107916222}
+  - component: {fileID: 1107916228}
+  - component: {fileID: 1107916227}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -276,49 +278,30 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &2048466202
-Prefab:
+--- !u!114 &1107916227
+MonoBehaviour:
   m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4794950066242674, guid: 0d34cb8aef494ee42b8ebe66fcd0f6ab, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4794950066242674, guid: 0d34cb8aef494ee42b8ebe66fcd0f6ab, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4794950066242674, guid: 0d34cb8aef494ee42b8ebe66fcd0f6ab, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4794950066242674, guid: 0d34cb8aef494ee42b8ebe66fcd0f6ab, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4794950066242674, guid: 0d34cb8aef494ee42b8ebe66fcd0f6ab, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4794950066242674, guid: 0d34cb8aef494ee42b8ebe66fcd0f6ab, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4794950066242674, guid: 0d34cb8aef494ee42b8ebe66fcd0f6ab, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4794950066242674, guid: 0d34cb8aef494ee42b8ebe66fcd0f6ab, type: 2}
-      propertyPath: m_RootOrder
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1160552134255754, guid: 0d34cb8aef494ee42b8ebe66fcd0f6ab, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 0d34cb8aef494ee42b8ebe66fcd0f6ab, type: 2}
-  m_IsPrefabParent: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1107916221}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0860a315f0a730d4e979073babc1b52a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1107916228
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1107916221}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc6298c3c201d7d4897c538a5d39a53f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseTile: {fileID: 4794950066242674, guid: 0d34cb8aef494ee42b8ebe66fcd0f6ab, type: 2}
+  baseLemming: {fileID: 4086270605084842, guid: bb651e559e6a6a24c9c95e2d10f86e4c,
+    type: 2}
+  spawnables:
+  - {fileID: 4134738074142460, guid: a400a43e6e1174dbdbb52c9cf03d4046, type: 2}
