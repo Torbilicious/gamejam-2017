@@ -34,12 +34,15 @@ public class Tile : MonoBehaviour
     private void Start()
     {
         new RunDirectionHelper();
+        fire = GameObject.Find(gameObject.name + "/Fire");
         Placeable = GameObject.Find(gameObject.name + "/Placeable");
     }
 
+    private GameObject fire;
+
     private void Update()
     {
-        //TODO: fire logic
+        if (fire != null) fire.SetActive(onFire > 0.05f);
     }
 
     internal void Ignite()

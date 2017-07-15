@@ -1,8 +1,8 @@
 ﻿using System;
 using UnityEngine;
 
-public partial class LemmingAI : MonoBehaviour {
-
+public partial class LemmingAI : MonoBehaviour
+{
     #region Internal Structures
 
     private enum LemmingState
@@ -14,7 +14,7 @@ public partial class LemmingAI : MonoBehaviour {
         Burning
     }
 
-    #endregion
+    #endregion Internal Structures
 
     #region Public Variables
 
@@ -22,7 +22,7 @@ public partial class LemmingAI : MonoBehaviour {
 
     public MonoBehaviour LemmingScript;
 
-    #endregion
+    #endregion Public Variables
 
     #region Private Variables
 
@@ -43,7 +43,7 @@ public partial class LemmingAI : MonoBehaviour {
     /// </summary>
     private static Tile[] _tiles;
 
-    #endregion
+    #endregion Private Variables
 
     #region Public Methods
 
@@ -57,10 +57,10 @@ public partial class LemmingAI : MonoBehaviour {
         //TODO: Get current tile here
     }
 
-    #endregion
+    #endregion Public Methods
 
     // Use this for initialization
-    void Start ()
+    private void Start()
     {
         _tiles = new Tile[0];
         _currentTile = null;
@@ -69,16 +69,16 @@ public partial class LemmingAI : MonoBehaviour {
 
         //StartAI();
     }
-	
-	// Update is called once per frame
-	void Update ()
+
+    // Update is called once per frame
+    private void Update()
     {
-        if(_state == LemmingState.NotLaunched)
+        if (_state == LemmingState.NotLaunched)
         {
             return;
         }
 
-        if(_tiles.Length == 0)
+        if (_tiles.Length == 0)
         {
             _tiles = FindObjectsOfType<Tile>();
             return;
@@ -103,24 +103,27 @@ public partial class LemmingAI : MonoBehaviour {
             }
         }
 
-	    QueryFireState();
-        
+        QueryFireState();
+
         switch (_state)
         {
             case LemmingState.Burning:
                 GetComponent<Animation>().Play("Lemming_Burning");
                 break;
+
             case LemmingState.Idle:
                 FindNextWaypoint();
-                break;    
+                break;
+
             case LemmingState.WaypointReached:
                 CheckForObjectInteraction();
                 break;
+
             case LemmingState.RunningToWaypoint:
                 RunToWaypoint();
                 break;
         }
-	}
+    }
 
     public void StartAI()
     {
@@ -129,16 +132,16 @@ public partial class LemmingAI : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.GetComponent<LemmingAI>() != null)
+        if (other.gameObject.GetComponent<LemmingAI>() != null)
             FindNextWaypoint(true);
     }
 
     private void QueryFireState()
     {
-//        if (_currentTile.fire > 0)
-//        {
-//            _state = LemmingState.Burning;
-//        }
+        if (_currentTile.IsOnFire)
+        {
+            _state = LemmingState.Burning;
+        }
     }
 
     private void FindNextWaypoint(bool ignoreLast = false)
@@ -187,7 +190,7 @@ public partial class LemmingAI : MonoBehaviour {
 
     private bool CanRunTo(RunDirection direction)
     {
-        if(_currentTile == null)
+        if (_currentTile == null)
         {
             return false;
         }
@@ -217,12 +220,15 @@ public partial class LemmingAI : MonoBehaviour {
                 case RunDirection.North:
                     _nextTile = LevelModel.Instance.Tiles[(int)currentTilePos.z + 1][(int)currentTilePos.x];
                     break;
+
                 case RunDirection.South:
                     _nextTile = LevelModel.Instance.Tiles[(int)currentTilePos.z - 1][(int)currentTilePos.x];
                     break;
+
                 case RunDirection.East:
                     _nextTile = LevelModel.Instance.Tiles[(int)currentTilePos.z][(int)currentTilePos.x + 1];
                     break;
+
                 case RunDirection.West:
                     _nextTile = LevelModel.Instance.Tiles[(int)currentTilePos.z][(int)currentTilePos.x - 1];
                     break;
