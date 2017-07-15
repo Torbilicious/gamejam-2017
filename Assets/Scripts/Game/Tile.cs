@@ -40,14 +40,31 @@ public class Tile : MonoBehaviour
 
     private GameObject fire;
 
+    [SerializeField]
+    private float burnTime = 4;
+
     private void Update()
     {
         if (fire != null) fire.SetActive(onFire > 0.05f);
+        if (onFire > 0.05f && onFire < 1)
+        {
+            onFire += Time.deltaTime / burnTime;
+        }
+        if (onFire > 0.9f)
+        {
+            //Ignite other tiles
+            if (!WallNorth && indexY != LevelModel.Instance.Tiles.Length - 1) { LevelModel.Instance.Tiles[indexY + 1][indexX].Ignite(); }
+            if (!WallSouth && indexY != 0) { LevelModel.Instance.Tiles[indexY - 1][indexX].Ignite(); }
+            if (!WallEast && indexX != LevelModel.Instance.Tiles[indexY].Length - 1) { LevelModel.Instance.Tiles[indexY][indexX + 1].Ignite(); }
+            if (!WallWest && indexX != 0) { LevelModel.Instance.Tiles[indexY][indexX - 1].Ignite(); }
+        }
     }
+
+    public int indexX, indexY;
 
     internal void Ignite()
     {
-        onFire += 0.1f;
+        if (onFire < 0.05f) onFire += 0.1f;
     }
 
     public override string ToString()
@@ -166,15 +183,15 @@ public class Tile : MonoBehaviour
                 }
             }
 
-            /*Tile north = LevelModel.Instance.TryGetTile((int)transform.position.z + 1, (int)transform.position.x);
+            Tile north = LevelModel.Instance.TryGetTile((int)transform.position.z + 1, (int)transform.position.x);
             Tile south = LevelModel.Instance.TryGetTile((int)transform.position.z - 1, (int)transform.position.x);
-            Tile east  = LevelModel.Instance.TryGetTile((int)transform.position.z, (int)transform.position.x + 1);
-            Tile west  = LevelModel.Instance.TryGetTile((int)transform.position.z, (int)transform.position.x - 1);
+            Tile east = LevelModel.Instance.TryGetTile((int)transform.position.z, (int)transform.position.x + 1);
+            Tile west = LevelModel.Instance.TryGetTile((int)transform.position.z, (int)transform.position.x - 1);
 
             if (north && north.IsOnFire) directions[RunDirection.North] = false;
             if (south && south.IsOnFire) directions[RunDirection.South] = false;
-            if (east  && east.IsOnFire)  directions[RunDirection.East]  = false;
-            if (west  && west.IsOnFire)  directions[RunDirection.West]  = false;*/
+            if (east && east.IsOnFire) directions[RunDirection.East] = false;
+            if (west && west.IsOnFire) directions[RunDirection.West] = false;
         }
         catch { }
         return directions;
