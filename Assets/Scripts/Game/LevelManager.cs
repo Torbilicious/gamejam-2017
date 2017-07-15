@@ -15,6 +15,8 @@ public class LevelManager : MonoBehaviour
 
     public static int Points = 0;
 
+    public static bool FireAlarmTriggered = false;
+
     public LevelModel LevelModel;
 
     private void Awake()
