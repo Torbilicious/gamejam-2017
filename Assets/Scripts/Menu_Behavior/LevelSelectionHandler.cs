@@ -4,12 +4,12 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 //TODO: Load Levels
-public class LevelSelectionHandler : MonoBehaviour {
-
+public class LevelSelectionHandler : MonoBehaviour
+{
     public string MainMenu = "Main_Menu";
     public string Level = "Level";
 
-	public void GoToMainMenu()
+    public void GoToMainMenu()
     {
         SceneManager.LoadScene(MainMenu, LoadSceneMode.Single);
     }
@@ -21,7 +21,7 @@ public class LevelSelectionHandler : MonoBehaviour {
 
     public void OnButtonLevel1Click()
     {
-        LevelManager.LevelName = "level";
+        LevelManager.Instance.LevelName = "level";
         LoadLevel();
     }
 }

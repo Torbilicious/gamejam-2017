@@ -10,15 +10,16 @@ public class LevelManager : MonoBehaviour
 {
     private bool _levelLoaded = false;
     private int _lemmingCount;
+    public static LevelManager Instance;
+    public string LevelName = "level";
 
-    public static string LevelName = "level";
-    
     public static int Points = 0;
 
     public LevelModel LevelModel;
 
     private void Awake()
     {
+        Instance = this;
     }
 
     [SerializeField]

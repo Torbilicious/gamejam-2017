@@ -53,14 +53,15 @@ public class Tile : MonoBehaviour
         if (onFire > 0.9f)
         {
             //Ignite other tiles
-            if (!WallNorth && indexY != LevelModel.Instance.Tiles.Length - 1) { LevelModel.Instance.Tiles[indexY + 1][indexX].Ignite(); }
-            if (!WallSouth && indexY != 0) { LevelModel.Instance.Tiles[indexY - 1][indexX].Ignite(); }
-            if (!WallEast && indexX != LevelModel.Instance.Tiles[indexY].Length - 1) { LevelModel.Instance.Tiles[indexY][indexX + 1].Ignite(); }
-            if (!WallWest && indexX != 0) { LevelModel.Instance.Tiles[indexY][indexX - 1].Ignite(); }
+            if (!WallNorth && r != LevelModel.Instance.Tiles.Length - 1) { LevelModel.Instance.Tiles[r + 1][c].Ignite(); }
+            if (!WallSouth && r != 0) { LevelModel.Instance.Tiles[r - 1][c].Ignite(); }
+            if (!WallEast && c != LevelModel.Instance.Tiles[r].Length - 1) { LevelModel.Instance.Tiles[r][c + 1].Ignite(); }
+            if (!WallWest && c != 0) { LevelModel.Instance.Tiles[r][c - 1].Ignite(); }
         }
     }
 
-    public int indexX, indexY;
+    [HideInInspector]
+    public int c, r;
 
     internal void Ignite()
     {

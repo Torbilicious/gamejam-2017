@@ -71,8 +71,8 @@ public class LevelModel : MonoBehaviour
                     tiles[r][c].gameObject.name += String.Format(" -- {0}:{1}", r, c);
                     Debug.Log(String.Format("{0}:{1} -- ", r, c) + cols[c]);
                     tiles[r][c].transform.position = new Vector3(c, 0, r);
-                    tiles[r][c].indexY = r;
-                    tiles[r][c].indexX = c;
+                    tiles[r][c].r = r;
+                    tiles[r][c].c = c;
                 }
             }
         }
