@@ -19,39 +19,47 @@ public class LevelModel : MonoBehaviour
     public Tile[][] Tiles
     {
         set { tiles = value; }
+        get { return tiles; }
     }
 
-    private const char SEPARATOR_X = ',', SEPARATOR_Y = '\n';
+    private const char SEPARATOR_X = ',', SEPARATOR_Z = '\n';
 
     public String Serialize()
     {
         StringBuilder sb = new StringBuilder();
         foreach (Tile[] row in tiles)
         {
-            if (row == null) continue;
-            if (sb.Length > 0) sb.Append(SEPARATOR_Y);
-            foreach (Tile tile in row)
+            if (row != null)
             {
-                if (tile == null) continue;
-                if (sb.Length > 0) sb.Append(SEPARATOR_X);
-                sb.Append(tile.ToString());
+                foreach (Tile tile in row)
+                {
+                    if (tile != null) sb.Append(tile != null ? tile.ToString() : "");
+                    if (sb.Length > 0) sb.Append(SEPARATOR_X);
+                }
             }
+            if (sb.Length > 0) sb.Append(SEPARATOR_Z);
         }
-        return sb.ToString();
+        string res = sb.ToString().Trim();
+        return res.EndsWith(SEPARATOR_X + "") ? res.Substring(0, res.Length - 1) : res;
     }
 
-    public void DeserializeAsync(string serialized)
+    public void Deserialize(string serialized)
     {
-        string[] rows = serialized.Split(SEPARATOR_Y);
+        string[] rows = serialized.Split(SEPARATOR_Z);
         tiles = new Tile[rows.Length][];
-        for (int row = 0; row < tiles.Length; row++)
+        for (int r = 0; r < tiles.Length; r++)
         {
-            string[] cols = rows[row].Split(SEPARATOR_X);
-            tiles[row] = new Tile[cols.Length];
-            for (int col = 0; col < cols.Length; col++)
+            string[] cols = rows[r].Split(SEPARATOR_X);
+            tiles[r] = new Tile[cols.Length];
+            for (int c = 0; c < cols.Length; c++)
             {
-                tiles[row][col] = Tile.Parse(cols[col]);
-                tiles[row][col].transform.position = new Vector3(col, 0, row);
+                tiles[r][c] = Tile.Parse(cols[c]);
+                if (tiles[r][c] != null)
+                {
+                    tiles[r][c].gameObject.name += String.Format(" -- {0}:{1}", r, c);
+                    Debug.Log(String.Format("{0}:{1} -- ", r, c) + cols[c]);
+                    tiles[r][c].transform.position = new Vector3(c, 0, r);
+                }
             }
         }
     }
