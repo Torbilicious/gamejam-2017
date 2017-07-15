@@ -39,7 +39,8 @@ public class LevelManager : MonoBehaviour
 
     public void ReloadLevel()
     {
-        SceneManager.LoadScene(LevelName, LoadSceneMode.Single);
+        //SceneManager.LoadScene(LevelName, LoadSceneMode.Single);
+        Application.LoadLevel(Application.loadedLevel);
     }
 
     private IEnumerator Start()
@@ -82,7 +83,7 @@ public class LevelManager : MonoBehaviour
             lemming3.position = new Vector3(2, 1, 0);*/
         }
 
-        if(_levelLoaded)
+        if (_levelLoaded)
         {
             score.text = string.Format("{0}/{1}", Points, _lemmingCount);
         }
