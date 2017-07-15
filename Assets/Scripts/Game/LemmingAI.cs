@@ -201,23 +201,31 @@ public partial class LemmingAI : MonoBehaviour {
 
     private void SetNextWayPoint(RunDirection direction)
     {
-        //Find the next tile
-        Vector3 currentTilePos = _currentTile.gameObject.transform.position;
-
-        switch (direction)
+        try
         {
-            case RunDirection.North:
-                _nextTile = LevelModel.Instance.Tiles[(int)currentTilePos.z + 1][(int)currentTilePos.x];
-                break;
-            case RunDirection.South:
-                _nextTile = LevelModel.Instance.Tiles[(int)currentTilePos.z - 1][(int)currentTilePos.x];
-                break;
-            case RunDirection.East:
-                _nextTile = LevelModel.Instance.Tiles[(int)currentTilePos.z][(int)currentTilePos.x + 1];
-                break;
-            case RunDirection.West:
-                _nextTile = LevelModel.Instance.Tiles[(int)currentTilePos.z][(int)currentTilePos.x - 1];
-                break;
+            //Find the next tile
+            Vector3 currentTilePos = _currentTile.gameObject.transform.position;
+
+            switch (direction)
+            {
+                case RunDirection.North:
+                    _nextTile = LevelModel.Instance.Tiles[(int)currentTilePos.z + 1][(int)currentTilePos.x];
+                    break;
+                case RunDirection.South:
+                    _nextTile = LevelModel.Instance.Tiles[(int)currentTilePos.z - 1][(int)currentTilePos.x];
+                    break;
+                case RunDirection.East:
+                    _nextTile = LevelModel.Instance.Tiles[(int)currentTilePos.z][(int)currentTilePos.x + 1];
+                    break;
+                case RunDirection.West:
+                    _nextTile = LevelModel.Instance.Tiles[(int)currentTilePos.z][(int)currentTilePos.x - 1];
+                    break;
+            }
+        }
+        catch
+        {
+            LevelManager.Points++;
+            Destroy(this.gameObject);
         }
     }
 }
