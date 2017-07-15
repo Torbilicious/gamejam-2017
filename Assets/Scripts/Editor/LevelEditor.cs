@@ -7,6 +7,8 @@ using UnityEngine;
 
 public class LevelEditor : EditorWindow
 {
+    private const String levelPath = "/Resources/Levels/";
+
     [MenuItem("Fire Lemmings/Serialize Level")]
     public static void SerializeLevel()
     {
@@ -28,7 +30,7 @@ public class LevelEditor : EditorWindow
             else
             {
                 Debug.Log("Starting serialization of level!");
-                string path = Application.dataPath + "/Levels/";
+                string path = Application.dataPath + levelPath;
                 if (!Directory.Exists(path)) Directory.CreateDirectory(path);
                 path += filename;
 
@@ -66,7 +68,7 @@ public class LevelEditor : EditorWindow
             if (lm == null) Debug.LogError("No instance of LevelModel found in this scene!");
             else
             {
-                string level = File.ReadAllText(Application.dataPath + "/Levels/" + filename);
+                string level = File.ReadAllText(Application.dataPath + levelPath + filename);
                 try
                 {
                     foreach (Tile[] tiles in lm.Tiles) foreach (Tile tile in tiles) if (tile != null) DestroyImmediate(tile.gameObject);
