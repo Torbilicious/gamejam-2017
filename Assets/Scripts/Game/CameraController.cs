@@ -13,10 +13,13 @@ public class CameraController : MonoBehaviour
     [SerializeField]
     private Camera Cam;
 
+    private Quaternion _initalCamQuaternion;
+
     // Use this for initialization
     private void Start()
     {
         mouse = Input.mousePosition;
+        _initalCamQuaternion = Cam.transform.rotation;
     }
 
     private Vector2 mouse;
@@ -30,7 +33,7 @@ public class CameraController : MonoBehaviour
             if (Input.GetKey("q")) { transform.Rotate(transform.InverseTransformDirection(Vector3.down), Speed / 2); }
             if (Input.GetKey("e")) { transform.Rotate(transform.InverseTransformDirection(Vector3.down), Speed / -2); }
         }
-        else if (!Input.GetMouseButton(1))
+        else if (!Input.GetMouseButton(1) && IsMouseOnScreen())
         {
             mouse = Input.mousePosition;
             if (mouse.x < Screen.width * 0.05) transform.Translate(Time.deltaTime * Speed * Vector3.left);
@@ -39,17 +42,28 @@ public class CameraController : MonoBehaviour
             if (mouse.y < Screen.height * 0.05) transform.Translate(Time.deltaTime * Speed * Vector3.forward * -1);
             if (mouse.y > Screen.height * 0.95) transform.Translate(Time.deltaTime * Speed * Vector3.forward);
         }
-        else
+        else if(IsMouseOnScreen())
         {
             transform.Rotate(transform.InverseTransformDirection(
                 Vector3.down), (mouse.x - Input.mousePosition.x) * -1);
             mouse = Input.mousePosition;
         }
-        if (Input.GetKeyDown("r")) transform.position = new Vector3(0, transform.position.y, 0);
+        if (Input.GetKeyDown("r"))
+        {
+            transform.position = new Vector3(0, transform.position.y, 0);
+            Cam.transform.rotation = _initalCamQuaternion;
+        }
         if (Cam != null)
         {
             Cam.fieldOfView += Input.GetAxis("Mouse ScrollWheel") * ZoomSpeed;
             Cam.fieldOfView = Mathf.Clamp(Cam.fieldOfView, MinFov, MaxFov);
         }
+    }
+
+    private bool IsMouseOnScreen()
+    {
+        Rect screenRect = new Rect(0,0, Screen.width, Screen.height);
+        return screenRect.Contains(Input.mousePosition);
+
     }
 }
