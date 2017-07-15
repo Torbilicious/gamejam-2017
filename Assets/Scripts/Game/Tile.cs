@@ -7,7 +7,7 @@ using UnityEngine;
 public class Tile : MonoBehaviour
 {
     [SerializeField]
-    private bool wallNorth, wallEast, wallSouth, wallWest;
+    public bool WallNorth, WallEast, WallSouth, WallWest;
 
     [SerializeField]
     private GameObject placeable;
@@ -29,20 +29,20 @@ public class Tile : MonoBehaviour
     public override string ToString()
     {
         StringBuilder sb = new StringBuilder();
-        sb.Append(wallNorth ? '1' : '0');
-        sb.Append(wallEast ? '1' : '0');
-        sb.Append(wallSouth ? '1' : '0');
-        sb.Append(wallWest ? '1' : '0');
+        sb.Append(WallNorth ? '1' : '0');
+        sb.Append(WallEast ? '1' : '0');
+        sb.Append(WallSouth ? '1' : '0');
+        sb.Append(WallWest ? '1' : '0');
         sb.Append("basic");
         return sb.ToString();
     }
 
     public void ApplyWalls()
     {
-        GameObject.Find(gameObject.name + "/Walls/north").gameObject.SetActive(wallNorth);
-        GameObject.Find(gameObject.name + "/Walls/east").gameObject.SetActive(wallEast);
-        GameObject.Find(gameObject.name + "/Walls/south").gameObject.SetActive(wallSouth);
-        GameObject.Find(gameObject.name + "/Walls/west").gameObject.SetActive(wallWest);
+        GameObject.Find(gameObject.name + "/Walls/north").gameObject.SetActive(WallNorth);
+        GameObject.Find(gameObject.name + "/Walls/east").gameObject.SetActive(WallEast);
+        GameObject.Find(gameObject.name + "/Walls/south").gameObject.SetActive(WallSouth);
+        GameObject.Find(gameObject.name + "/Walls/west").gameObject.SetActive(WallWest);
     }
 
     public static Tile Parse(string serialized)
@@ -52,10 +52,10 @@ public class Tile : MonoBehaviour
         o.name += (long)(DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds;
         Tile tile = o.gameObject.AddComponent<Tile>();
         char[] ser = serialized.ToCharArray();
-        tile.wallNorth = ser[0] == '1';
-        tile.wallEast = ser[1] == '1';
-        tile.wallSouth = ser[2] == '1';
-        tile.wallWest = ser[3] == '1';
+        tile.WallNorth = ser[0] == '1';
+        tile.WallEast = ser[1] == '1';
+        tile.WallSouth = ser[2] == '1';
+        tile.WallWest = ser[3] == '1';
         tile.ApplyWalls();
         return tile;
     }
