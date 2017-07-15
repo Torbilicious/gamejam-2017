@@ -19,6 +19,7 @@ public class FireSource : MonoBehaviour
 
     public void GameStarted()
     {
+        StartCoroutine(IgniteDelayed());
     }
 
     private IEnumerator IgniteDelayed()
@@ -27,6 +28,7 @@ public class FireSource : MonoBehaviour
         Tile tile = null;
         Transform parent = transform.parent;
         while (transform.parent != null && parent.GetComponent<Tile>() == null) parent = parent.parent;
+        tile = parent.GetComponent<Tile>();
         if (tile != null) tile.Ignite();
     }
 }

@@ -219,7 +219,7 @@ public class Lemming : MonoBehaviour
         {
             //relativePos.y = 0;
             Quaternion rotation = Quaternion.LookRotation(relativePos);
-            this.gameObject.transform.rotation = Quaternion.Slerp(rotation, this.gameObject.transform.rotation, 0.001f);
+            this.gameObject.transform.rotation = rotation;// Quaternion.Slerp(rotation, this.gameObject.transform.rotation, 0.1f);
         }
 
         if (transform.position == targetPos)

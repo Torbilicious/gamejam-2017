@@ -32,6 +32,8 @@ public class LevelManager : MonoBehaviour
     {
         List<Lemming> lemmingAIs = new List<Lemming>(GameObject.FindObjectsOfType<Lemming>());
         lemmingAIs.ForEach((Lemming l) => { l.StartAI(); });
+
+        new List<FireSource>(FindObjectsOfType<FireSource>()).ForEach(s => s.GameStarted());
         gameStarted = true;
     }
 
