@@ -1,13 +1,11 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
-    [SerializeField]
-    private Transform baseTile, wall;
-
     [SerializeField]
     private bool wallNorth, wallEast, wallSouth, wallWest;
 
@@ -39,8 +37,26 @@ public class Tile : MonoBehaviour
         return sb.ToString();
     }
 
+    public void ApplyWalls()
+    {
+        GameObject.Find(gameObject.name + "/Walls/north").gameObject.SetActive(wallNorth);
+        GameObject.Find(gameObject.name + "/Walls/east").gameObject.SetActive(wallEast);
+        GameObject.Find(gameObject.name + "/Walls/south").gameObject.SetActive(wallSouth);
+        GameObject.Find(gameObject.name + "/Walls/west").gameObject.SetActive(wallWest);
+    }
+
     public static Tile Parse(string serialized)
     {
-        return null;
+        if (serialized.Length < 5) return null;
+        Transform o = Instantiate(ModelStore.Instance.baseTile);
+        o.name += (long)(DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds;
+        Tile tile = o.gameObject.AddComponent<Tile>();
+        char[] ser = serialized.ToCharArray();
+        tile.wallNorth = ser[0] == '1';
+        tile.wallEast = ser[1] == '1';
+        tile.wallSouth = ser[2] == '1';
+        tile.wallWest = ser[3] == '1';
+        tile.ApplyWalls();
+        return tile;
     }
 }
