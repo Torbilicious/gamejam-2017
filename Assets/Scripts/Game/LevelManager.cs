@@ -62,7 +62,10 @@ public class LevelManager : MonoBehaviour
             lemming2.position = new Vector3(2, 1, 0);
         }
 
-        score.text = string.Format("{0}/{1}", Points, _lemmingCount);
+        if(_levelLoaded)
+        {
+            score.text = string.Format("{0}/{1}", Points, _lemmingCount);
+        }
     }
 
     public void Exit2LevelMenu()
