@@ -36,6 +36,10 @@ public class LevelManager : MonoBehaviour {
 
             Transform lemming = Instantiate(ModelStore.Instance.baseLemming);
             lemming.position = new Vector3(0, 1, 0);
+
+            Transform lemming2 = Instantiate(ModelStore.Instance.baseLemming);
+            lemming2.position = new Vector3(2, 1, 0);
+
         }
-	}
+    }
 }

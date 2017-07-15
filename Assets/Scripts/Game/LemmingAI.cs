@@ -15,6 +15,7 @@ public class LemmingAI : MonoBehaviour {
 
     private enum LemmingState
     {
+        NotLaunched,
         Idle,
         RunningToWaypoint,
         WaypointReached,
@@ -49,7 +50,7 @@ public class LemmingAI : MonoBehaviour {
     /// <summary>
     /// The lemming is currently in this state.
     /// </summary>
-    private LemmingState _state = LemmingState.Idle;
+    private LemmingState _state = LemmingState.NotLaunched;
 
     private RunDirection _lastRunDirection;
 
@@ -90,6 +91,11 @@ public class LemmingAI : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
+        if(_state == LemmingState.NotLaunched)
+        {
+            return;
+        }
+
         if(_tiles.Length == 0)
         {
             _tiles = FindObjectsOfType<Tile>();
@@ -134,6 +140,17 @@ public class LemmingAI : MonoBehaviour {
         }
 	}
 
+    public void StartAI()
+    {
+        _state = LemmingState.Idle;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.GetComponent<LemmingAI>() != null)
+            FindNextWaypoint(true);
+    }
+
     private void QueryFireState()
     {
 //        if (_currentTile.fire > 0)
@@ -142,10 +159,9 @@ public class LemmingAI : MonoBehaviour {
 //        }
     }
 
-    private void FindNextWaypoint()
+    private void FindNextWaypoint(bool ignoreLast = false)
     {
-        
-        if (CanRunTo(_lastRunDirection))
+        if (CanRunTo(_lastRunDirection) && !ignoreLast)
         {
             SetNextWayPoint(_lastRunDirection);
         }
@@ -172,19 +188,15 @@ public class LemmingAI : MonoBehaviour {
         switch (_lastRunDirection)
         {
             case RunDirection.North:
-                Debug.Log("AI: Running North");
                 _nextTile = LevelModel.Instance.Tiles[(int)currentTilePos.z + 1][(int)currentTilePos.x];
                 break;
             case RunDirection.South:
-                Debug.Log("AI: Running South");
                 _nextTile = LevelModel.Instance.Tiles[(int)currentTilePos.z - 1][(int)currentTilePos.x];
                 break;
             case RunDirection.East:
-                Debug.Log("AI: Running East");
                 _nextTile = LevelModel.Instance.Tiles[(int)currentTilePos.z][(int)currentTilePos.x + 1];
                 break;
             case RunDirection.West:
-                Debug.Log("AI: Running West");
                 _nextTile = LevelModel.Instance.Tiles[(int)currentTilePos.z][(int)currentTilePos.x - 1];
                 break;
         }
