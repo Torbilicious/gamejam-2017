@@ -1,17 +1,9 @@
 ﻿using System;
 using UnityEngine;
 
-public class LemmingAI : MonoBehaviour {
+public partial class LemmingAI : MonoBehaviour {
 
     #region Internal Structures
-
-    private enum RunDirection
-    {
-        North,
-        South,
-        West,
-        East
-    }
 
     private enum LemmingState
     {
@@ -195,18 +187,8 @@ public class LemmingAI : MonoBehaviour {
 
     private bool CanRunTo(RunDirection direction)
     {
-        switch(direction)
-        {
-            case RunDirection.North:
-                return !_currentTile.WallNorth;
-            case RunDirection.South:
-                return !_currentTile.WallSouth;
-            case RunDirection.East:
-                return !_currentTile.WallEast;
-            case RunDirection.West:
-                return !_currentTile.WallWest;
-            default: return false;
-        }
+        var directions = _currentTile.QueryDirections();
+        return directions[direction];
     }
 
     private void CheckForObjectInteraction()
