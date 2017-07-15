@@ -5,30 +5,44 @@ using UnityEngine;
 /// <summary>
 /// This is the main class for a level.
 /// </summary>
-public class LevelManager : MonoBehaviour {
-
+public class LevelManager : MonoBehaviour
+{
     private bool _levelLoaded = false;
 
     public static string LevelName = "level";
 
     public LevelModel LevelModel;
 
-    /// <summary>
-    /// Initialize the level
-    /// </summary>
-    void Start()
-    {
-    }
-
     private void Awake()
     {
     }
 
-    // Update is called once per frame
-    void Update ()
+    [SerializeField]
+    private UnityEngine.UI.Text score;
+
+    public void StartLevel()
     {
-		//Load the level
-        if(!_levelLoaded && ModelStore.Instance != null)
+        List<LemmingAI> lemmingAIs = new List<LemmingAI>(GameObject.FindObjectsOfType<LemmingAI>());
+        lemmingAIs.ForEach((LemmingAI l) => { l.StartAI(); });
+    }
+
+    public void ReloadLevel()
+    {
+        Application.LoadLevel(Application.loadedLevel);
+    }
+
+    private IEnumerator Start()
+    {
+        yield return new WaitForSeconds(0.5f);
+        List<LemmingAI> lemmingAIs = new List<LemmingAI>(GameObject.FindObjectsOfType<LemmingAI>());
+        score.text = string.Format("{0}/{0}", lemmingAIs.Count, lemmingAIs.Count);
+    }
+
+    // Update is called once per frame
+    private void Update()
+    {
+        //Load the level
+        if (!_levelLoaded && ModelStore.Instance != null)
         {
             _levelLoaded = true;
             TextAsset levelFile = Resources.Load("Levels/" + LevelName) as TextAsset;
@@ -39,7 +53,6 @@ public class LevelManager : MonoBehaviour {
 
             Transform lemming2 = Instantiate(ModelStore.Instance.baseLemming);
             lemming2.position = new Vector3(2, 1, 0);
-
         }
     }
 }
