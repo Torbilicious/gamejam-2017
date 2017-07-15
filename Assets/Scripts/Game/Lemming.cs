@@ -11,7 +11,7 @@ public class Lemming : MonoBehaviour
         Idle,
         RunningToWaypoint,
         WaypointReached,
-        Burning
+        Dead
     }
 
     #endregion Internal Structures
@@ -32,6 +32,7 @@ public class Lemming : MonoBehaviour
 
     private Tile _currentTile;
     private Tile _nextTile;
+    private float _removeTimer;
 
     /// <summary>
     /// The lemming is currently in this state.
@@ -72,27 +73,11 @@ public class Lemming : MonoBehaviour
         _tiles = new Tile[0];
         _currentTile = null;
         _nextTile = null;
+        _removeTimer = 3.0f;
     }
 
     private void Update()
     {
-        if (_state == LemmingState.NotLaunched)
-        {
-            return;
-        }
-
-        if(health <= 0)
-        {
-            Destroy(this.gameObject);
-            return;
-        }
-
-        if (_tiles.Length == 0)
-        {
-            _tiles = FindObjectsOfType<Tile>();
-            return;
-        }
-
         float shortestDistance = float.MaxValue;
 
         //Find the tile we are currently standing on
@@ -112,24 +97,35 @@ public class Lemming : MonoBehaviour
             }
         }
 
-        if(_currentTile.IsOnFire)
+        if (_state == LemmingState.NotLaunched)
         {
-            //TODO: activate burn animation
-            health -= Time.deltaTime / 100 * 70;
+            return;
+        }
+        if (health <= 0)
+        {
+            _removeTimer -= Time.deltaTime;
+            _state = LemmingState.Dead;
+        }
+        if (_removeTimer <= 0)
+        {
+            Destroy(this.gameObject);
+        }
 
-        }
-        else
+        if (_tiles.Length == 0)
         {
-            //TODO: activate normal animation
+            _tiles = FindObjectsOfType<Tile>();
+            return;
         }
+        if (_currentTile.IsOnFire)
+        {
+            health -= Time.deltaTime / 100 * 70;
+        }
+
+        GetComponent<Animator>().SetBool("onFire", _currentTile.IsOnFire);
+        GetComponent<Animator>().SetFloat("life", health);
 
         switch (_state)
         {
-            case LemmingState.Burning:
-                //GetComponent<Animation>().Play("Lemming_Burning");
-
-                break;
-
             case LemmingState.Idle:
                 FindNextWaypoint();
                 break;
@@ -199,8 +195,7 @@ public class Lemming : MonoBehaviour
         {
             return false;
         }
-        var directions = _currentTile.QueryDirections();
-        return directions[direction];
+        return _currentTile.QueryDirections()[direction];
     }
 
     private void CheckForObjectInteraction()
