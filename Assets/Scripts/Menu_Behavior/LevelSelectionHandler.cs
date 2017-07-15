@@ -21,19 +21,19 @@ public class LevelSelectionHandler : MonoBehaviour
 
     public void OnButtonLevel1Click()
     {
-        LevelManager.Instance.LevelName = "level1";
+        LevelManager.LevelName = "level1";
         LoadLevel();
     }
 
     public void OnButtonLevel2Click()
     {
-        LevelManager.Instance.LevelName = "level2";
+        LevelManager.LevelName = "level2";
         LoadLevel();
     }
 
     public void OnButtonLevel3Click()
     {
-        LevelManager.Instance.LevelName = "level3";
+        LevelManager.LevelName = "level3";
         LoadLevel();
     }
 

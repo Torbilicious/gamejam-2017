@@ -1508,7 +1508,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f22bb94c0bb24084abd68584e5e4cd54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LevelName: level
   LevelModel: {fileID: 0}
   score: {fileID: 0}
 --- !u!1 &1920648405
