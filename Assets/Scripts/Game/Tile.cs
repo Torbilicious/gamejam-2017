@@ -9,6 +9,7 @@ public class Tile : MonoBehaviour
     [SerializeField]
     public bool WallNorth, WallEast, WallSouth, WallWest;
 
+    [HideInInspector]
     [SerializeField]
     private GameObject Placeable;
 
