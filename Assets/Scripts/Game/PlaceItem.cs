@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class PlaceItem : MonoBehaviour
 {
+    public void StartPlaceItem()
+    {
+        playerMouseMode = PlayerMouseMode.PLACING;
+    }
+
     public static PlaceItem Instance;
 
     public enum PlayerMouseMode { PLACING, FREE }
@@ -16,6 +21,8 @@ public class PlaceItem : MonoBehaviour
     {
         Instance = this;
     }
+
+    public GameObject itemButtons;
 
     // Update is called once per frame
     private void Update()
@@ -45,6 +52,8 @@ public class PlaceItem : MonoBehaviour
                     if (distanceFromTileCenter.x > 0) spawned.transform.localEulerAngles = Vector3.up * 90;
                     else spawned.transform.localEulerAngles = Vector3.up * 270;
                 }
+
+                playerMouseMode = PlayerMouseMode.FREE;
             }
         }
     }

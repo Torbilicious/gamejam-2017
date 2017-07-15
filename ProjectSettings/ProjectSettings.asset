@@ -10,7 +10,7 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: "N\xF6"
+  companyName: "N\xF6 Games"
   productName: Fire Lemings
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}

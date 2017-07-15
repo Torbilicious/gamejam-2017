@@ -15,7 +15,6 @@ public class LevelManager : MonoBehaviour
     public string LevelName = "level";
 
     public static int Points = 0;
-    private int minLemmingCount = 0;
 
     public static bool FireAlarmTriggered = false;
 
@@ -32,7 +31,6 @@ public class LevelManager : MonoBehaviour
     public void StartLevel()
     {
         List<Lemming> lemmingAIs = new List<Lemming>(GameObject.FindObjectsOfType<Lemming>());
-        minLemmingCount = lemmingAIs.Count * 10 / 8;
         lemmingAIs.ForEach((Lemming l) => { l.StartAI(); });
         gameStarted = true;
     }
@@ -57,7 +55,7 @@ public class LevelManager : MonoBehaviour
     {
         if (gameStarted && GameObject.FindObjectsOfType<Lemming>().Length <= 1)
         {
-            int score = Points - minLemmingCount;
+            int score = Points - ((_lemmingCount * 10) / 8);
             gameOverPanel.transform.GetComponentInChildren<Text>().text = score < 0 ? "You loose!" : "You win!\nBonus: " + score;
             gameOverPanel.SetActive(true);
         }
