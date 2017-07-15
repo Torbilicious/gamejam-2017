@@ -1091,7 +1091,6 @@ GameObject:
   - component: {fileID: 1093746561}
   - component: {fileID: 1093746560}
   - component: {fileID: 1093746559}
-  - component: {fileID: 1093746558}
   m_Layer: 5
   m_Name: Camera_UILemming
   m_TagString: Untagged
@@ -1113,13 +1112,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!81 &1093746558
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1093746556}
-  m_Enabled: 1
 --- !u!92 &1093746559
 Behaviour:
   m_ObjectHideFlags: 0

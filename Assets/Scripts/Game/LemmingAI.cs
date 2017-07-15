@@ -174,7 +174,7 @@ public partial class LemmingAI : MonoBehaviour {
         Vector3 relativePos = targetPos - this.gameObject.transform.position;
         if (relativePos != Vector3.zero)
         {
-            relativePos.y = 0;
+            //relativePos.y = 0;
             Quaternion rotation = Quaternion.LookRotation(relativePos);
             this.gameObject.transform.rotation = Quaternion.Slerp(rotation, this.gameObject.transform.rotation, 0.001f);
         }
@@ -187,6 +187,10 @@ public partial class LemmingAI : MonoBehaviour {
 
     private bool CanRunTo(RunDirection direction)
     {
+        if(_currentTile == null)
+        {
+            return false;
+        }
         var directions = _currentTile.QueryDirections();
         return directions[direction];
     }
@@ -195,6 +199,8 @@ public partial class LemmingAI : MonoBehaviour {
     {
         //TODO: check here if there is a placeable on the current tile
         //set LemmingSTate.Idle if no interaction is possible
+
+        if (_currentTile) ;
 
         _state = LemmingState.Idle;
     }

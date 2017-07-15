@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
-using NUnit.Framework.Constraints;
 using UnityEngine;
 
 public class Tile : MonoBehaviour
@@ -135,16 +134,21 @@ public class Tile : MonoBehaviour
             {RunDirection.South, !WallSouth},
             {RunDirection.West, !WallWest}
         };
-        
-        if (HasPlaceable)
-        {
-            RunDirection direction;
-            if(RunDirectionHelper.ToDirection(transform.GetChild(0).localRotation.y, out direction))
-            {
-                directions[direction] = false;
-            }        
-        }
 
+        try
+        {
+            if (HasPlaceable)
+            {
+                RunDirection direction;
+                if (RunDirectionHelper.ToDirection(transform.GetChild(0).localRotation.y, out direction))
+                {
+                    directions[direction] = false;
+                }
+            }
+
+        }
+        catch {}
         return directions;
+
     }
 }
