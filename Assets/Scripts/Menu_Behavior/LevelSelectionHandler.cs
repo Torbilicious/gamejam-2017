@@ -7,9 +7,21 @@ using UnityEngine.SceneManagement;
 public class LevelSelectionHandler : MonoBehaviour {
 
     public string MainMenu = "Main_Menu";
+    public string Level = "Level";
 
 	public void GoToMainMenu()
     {
         SceneManager.LoadScene(MainMenu, LoadSceneMode.Single);
+    }
+
+    public void LoadLevel()
+    {
+        SceneManager.LoadScene(Level, LoadSceneMode.Single);
+    }
+
+    public void OnButtonLevel1Click()
+    {
+        LevelManager.LevelName = "level";
+        LoadLevel();
     }
 }

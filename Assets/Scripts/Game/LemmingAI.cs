@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class LemmingAI : MonoBehaviour {
@@ -72,7 +70,8 @@ public class LemmingAI : MonoBehaviour {
     #endregion
 
     // Use this for initialization
-    void Start () {
+    void Start ()
+    {
         _sourroundingTiles = new Tile[9];
         _currentTile = null;
         _lemmingScript = (Lemming)LemmingScript;
@@ -86,13 +85,12 @@ public class LemmingAI : MonoBehaviour {
         {
             case LemmingState.Idle:
                 FindNextWaypoint();
-                break;
-            
+                break;    
             case LemmingState.WaypointReached:
                 CheckForObjectInteraction();
                 break;
             case LemmingState.RunningToWaypoint:
-
+                RunToWaypoint();
                 break;
         }
 	}
@@ -123,9 +121,9 @@ public class LemmingAI : MonoBehaviour {
 
     private void RunToWaypoint()
     {
-        //TODO: Run to the next waypoint
-        // 1 Get lemming run speed from lemming.cs
-        // 2 Run to that point 
+        float step = _lemmingScript.Speed * Time.deltaTime;
+        transform.position = Vector3.MoveTowards(transform.position, _currentTile.transform.position, step);
+        transform.LookAt(_currentTile.transform);
     }
 
     private void RefreshSourroundingTiles()
@@ -136,6 +134,7 @@ public class LemmingAI : MonoBehaviour {
 
     private bool CanRunTo(RunDirection direction)
     {
+        return false;
         switch(direction)
         {
             case RunDirection.North:
