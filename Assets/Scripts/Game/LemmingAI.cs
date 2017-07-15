@@ -81,7 +81,9 @@ public class LemmingAI : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update ()
-    {
+	{
+	    QueryFireState();
+        
         switch (_state)
         {
             case LemmingState.Burning:
@@ -98,6 +100,14 @@ public class LemmingAI : MonoBehaviour {
                 break;
         }
 	}
+
+    private void QueryFireState()
+    {
+//        if (_currentTile.fire > 0)
+//        {
+//            _state = LemmingState.Burning;
+//        }
+    }
 
     private void FindNextWaypoint()
     {
