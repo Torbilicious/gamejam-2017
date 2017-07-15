@@ -26,8 +26,8 @@ public class LevelManager : MonoBehaviour
 
     public void StartLevel()
     {
-        List<LemmingAI> lemmingAIs = new List<LemmingAI>(GameObject.FindObjectsOfType<LemmingAI>());
-        lemmingAIs.ForEach((LemmingAI l) => { l.StartAI(); });
+        List<Lemming> lemmingAIs = new List<Lemming>(GameObject.FindObjectsOfType<Lemming>());
+        lemmingAIs.ForEach((Lemming l) => { l.StartAI(); });
     }
 
     public void ReloadLevel()
@@ -38,7 +38,7 @@ public class LevelManager : MonoBehaviour
     private IEnumerator Start()
     {
         yield return new WaitForSeconds(0.5f);
-        List<LemmingAI> lemmingAIs = new List<LemmingAI>(GameObject.FindObjectsOfType<LemmingAI>());
+        List<Lemming> lemmingAIs = new List<Lemming>(GameObject.FindObjectsOfType<Lemming>());
         _lemmingCount = lemmingAIs.Count - 1;
     }
 
