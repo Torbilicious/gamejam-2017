@@ -24,6 +24,8 @@ public class Tile : MonoBehaviour
         }
     }
 
+    public bool IsOnFire { get { return onFire > 0.1; } }
+
     private void Start()
     {
         new RunDirectionHelper();
@@ -146,6 +148,15 @@ public class Tile : MonoBehaviour
                 }
             }
 
+            Tile north = LevelModel.Instance.TryGetTile((int)transform.position.z + 1, (int)transform.position.x);
+            Tile south = LevelModel.Instance.TryGetTile((int)transform.position.z - 1, (int)transform.position.x);
+            Tile east  = LevelModel.Instance.TryGetTile((int)transform.position.z, (int)transform.position.x + 1);
+            Tile west  = LevelModel.Instance.TryGetTile((int)transform.position.z, (int)transform.position.x - 1);
+
+            if (north && north.IsOnFire) directions[RunDirection.North] = false;
+            if (south && south.IsOnFire) directions[RunDirection.South] = false;
+            if (east  && east.IsOnFire)  directions[RunDirection.East]  = false;
+            if (west  && west.IsOnFire)  directions[RunDirection.West]  = false;
         }
         catch {}
         return directions;

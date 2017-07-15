@@ -24,6 +24,18 @@ public class LevelModel : MonoBehaviour
 
     private const char SEPARATOR_X = ',', SEPARATOR_Z = '\n';
 
+    public Tile TryGetTile(int x, int y)
+    {
+        try
+        {
+            return Tiles[x][y];
+        }
+        catch
+        {
+            return null;
+        }
+    }
+
     public String Serialize()
     {
         StringBuilder sb = new StringBuilder();
