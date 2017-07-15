@@ -73,7 +73,7 @@ public class LevelEditor : EditorWindow
                     foreach (Tile[] tiles in lm.Tiles)
                     foreach (Tile tile in tiles) if (tile != null) DestroyImmediate(tile.gameObject);
                 }
-                catch (Exception e)
+                catch
                 {
                 }
                 lm.Deserialize(level);
