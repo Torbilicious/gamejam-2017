@@ -592,7 +592,7 @@ Transform:
   m_GameObject: {fileID: 1077812621567234}
   m_LocalRotation: {x: 0, y: 0.98888654, z: -0, w: -0.1486723}
   m_LocalPosition: {x: -756.297, y: 1485.4567, z: -1139.6316}
-  m_LocalScale: {x: 100, y: 100, z: 100}
+  m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children:
   - {fileID: 4051594195514754}
   - {fileID: 4539976286226538}
@@ -1024,6 +1024,7 @@ MonoBehaviour:
   sanity: 1
   courage: 1
   health: 1
+  Speed: 1
 --- !u!114 &114356590568753730
 MonoBehaviour:
   m_ObjectHideFlags: 1

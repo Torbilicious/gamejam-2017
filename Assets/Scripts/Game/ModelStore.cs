@@ -15,6 +15,9 @@ public class ModelStore : MonoBehaviour
     public Transform baseTile;
 
     [SerializeField]
+    public Transform baseLemming;
+
+    [SerializeField]
     private Spawnable[] spawnables;
 
     [SerializeField]
