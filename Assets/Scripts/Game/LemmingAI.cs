@@ -34,16 +34,6 @@ public class LemmingAI : MonoBehaviour {
 
     #region Private Variables
 
-    /// <summary>
-    /// The lemming is sourrounded by these tiles.
-    /// |1|2|3|
-    /// |-----|
-    /// |4|5|6|
-    /// |-----|
-    /// |7|8|9|
-    /// </summary>
-    private Tile[] _sourroundingTiles;
-
     private Tile _currentTile;
     private Tile _nextTile;
 
@@ -81,11 +71,11 @@ public class LemmingAI : MonoBehaviour {
     void Start ()
     {
         _tiles = new Tile[0];
-        _sourroundingTiles = new Tile[9];
         _currentTile = null;
         _nextTile = null;
         _lemmingScript = (Lemming)LemmingScript;
 
+        StartAI();
     }
 	
 	// Update is called once per frame
@@ -181,25 +171,6 @@ public class LemmingAI : MonoBehaviour {
         }
 
         _state = LemmingState.RunningToWaypoint;
-
-        //Find the next tile
-        Vector3 currentTilePos = _currentTile.gameObject.transform.position;
-
-        switch (_lastRunDirection)
-        {
-            case RunDirection.North:
-                _nextTile = LevelModel.Instance.Tiles[(int)currentTilePos.z + 1][(int)currentTilePos.x];
-                break;
-            case RunDirection.South:
-                _nextTile = LevelModel.Instance.Tiles[(int)currentTilePos.z - 1][(int)currentTilePos.x];
-                break;
-            case RunDirection.East:
-                _nextTile = LevelModel.Instance.Tiles[(int)currentTilePos.z][(int)currentTilePos.x + 1];
-                break;
-            case RunDirection.West:
-                _nextTile = LevelModel.Instance.Tiles[(int)currentTilePos.z][(int)currentTilePos.x - 1];
-                break;
-        }
     }
 
     private void RunToWaypoint()
@@ -220,12 +191,6 @@ public class LemmingAI : MonoBehaviour {
         {
             _state = LemmingState.WaypointReached;
         }
-    }
-
-    private void RefreshSourroundingTiles()
-    {
-        //TODO: set sourrounding tiles here
-        //Add method in the game manager
     }
 
     private bool CanRunTo(RunDirection direction)
@@ -254,6 +219,23 @@ public class LemmingAI : MonoBehaviour {
 
     private void SetNextWayPoint(RunDirection direction)
     {
-        //TODO: set next waypoint here
+        //Find the next tile
+        Vector3 currentTilePos = _currentTile.gameObject.transform.position;
+
+        switch (direction)
+        {
+            case RunDirection.North:
+                _nextTile = LevelModel.Instance.Tiles[(int)currentTilePos.z + 1][(int)currentTilePos.x];
+                break;
+            case RunDirection.South:
+                _nextTile = LevelModel.Instance.Tiles[(int)currentTilePos.z - 1][(int)currentTilePos.x];
+                break;
+            case RunDirection.East:
+                _nextTile = LevelModel.Instance.Tiles[(int)currentTilePos.z][(int)currentTilePos.x + 1];
+                break;
+            case RunDirection.West:
+                _nextTile = LevelModel.Instance.Tiles[(int)currentTilePos.z][(int)currentTilePos.x - 1];
+                break;
+        }
     }
 }
