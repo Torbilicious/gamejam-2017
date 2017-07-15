@@ -19,6 +19,8 @@ ExportedObj/
 *.unityproj
 *.booproj
 
+*/Plugins/Editor/JetBrains/Unity3DRider.cs
+
 
 .DS_Store
 .DS_Store?
