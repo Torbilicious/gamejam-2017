@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 /// <summary>
 /// This is the main class for a level.
@@ -14,6 +15,7 @@ public class LevelManager : MonoBehaviour
     public string LevelName = "level";
 
     public static int Points = 0;
+    private int minLemmingCount = 0;
 
     public static bool FireAlarmTriggered = false;
 
@@ -30,8 +32,12 @@ public class LevelManager : MonoBehaviour
     public void StartLevel()
     {
         List<Lemming> lemmingAIs = new List<Lemming>(GameObject.FindObjectsOfType<Lemming>());
+        minLemmingCount = lemmingAIs.Count * 10 / 8;
         lemmingAIs.ForEach((Lemming l) => { l.StartAI(); });
+        gameStarted = true;
     }
+
+    private bool gameStarted = false;
 
     public void ReloadLevel()
     {
@@ -45,9 +51,23 @@ public class LevelManager : MonoBehaviour
         _lemmingCount = lemmingAIs.Count - 1;
     }
 
+    public GameObject gameOverPanel;
+
+    private void CheckGameFinished()
+    {
+        if (gameStarted && GameObject.FindObjectsOfType<Lemming>().Length <= 1)
+        {
+            int score = Points - minLemmingCount;
+            gameOverPanel.transform.GetComponentInChildren<Text>().text = score < 0 ? "You loose!" : "You win!\nBonus: " + score;
+            gameOverPanel.SetActive(true);
+        }
+    }
+
     // Update is called once per frame
     private void Update()
     {
+        CheckGameFinished();
+
         //Load the level
         if (!_levelLoaded && ModelStore.Instance != null)
         {
