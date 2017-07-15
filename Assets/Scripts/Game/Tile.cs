@@ -21,7 +21,7 @@ public class Tile : MonoBehaviour
             {
                 return false;
             }
-            return Placeable.transform.childCount == 0;
+            return Placeable.transform.childCount != 0;
         }
     }
 
@@ -138,8 +138,11 @@ public class Tile : MonoBehaviour
         
         if (HasPlaceable)
         {
-            var blockedDirection = RunDirectionHelper.ToDirection(transform.GetChild(0).localRotation.y);
-            directions[blockedDirection] = false;
+            RunDirection direction;
+            if(RunDirectionHelper.ToDirection(transform.GetChild(0).localRotation.y, out direction))
+            {
+                directions[direction] = false;
+            }        
         }
 
         return directions;

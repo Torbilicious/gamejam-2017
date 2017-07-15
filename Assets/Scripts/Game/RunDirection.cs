@@ -26,10 +26,8 @@ class RunDirectionHelper
         return rotation;
     }
     
-    public static RunDirection ToDirection(float rotation)
+    public static bool ToDirection(float rotation, out RunDirection direction)
     {
-        RunDirection direction;
-        _directionMapping.TryGetBySecond(rotation, out direction);
-        return direction;
+        return _directionMapping.TryGetBySecond(rotation, out direction);
     }
 }
