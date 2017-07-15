@@ -9,7 +9,7 @@ public class LevelManager : MonoBehaviour {
 
     private bool _levelLoaded = false;
 
-    public static string LevelName = "";
+    public static string LevelName = "level";
 
     public LevelModel LevelModel;
 
@@ -33,6 +33,9 @@ public class LevelManager : MonoBehaviour {
             _levelLoaded = true;
             TextAsset levelFile = Resources.Load("Levels/" + LevelName) as TextAsset;
             LevelModel.Deserialize(levelFile.text);
+
+            Transform lemming = Instantiate(ModelStore.Instance.baseLemming);
+            lemming.position = new Vector3(0, 1, 0);
         }
 	}
 }
