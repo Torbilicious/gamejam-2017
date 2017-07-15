@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// This is the main class for a level.
@@ -8,8 +9,11 @@ using UnityEngine;
 public class LevelManager : MonoBehaviour
 {
     private bool _levelLoaded = false;
+    private int _lemmingCount;
 
     public static string LevelName = "level";
+    
+    public static int Points = 0;
 
     public LevelModel LevelModel;
 
@@ -28,14 +32,14 @@ public class LevelManager : MonoBehaviour
 
     public void ReloadLevel()
     {
-        Application.LoadLevel(Application.loadedLevel);
+        SceneManager.LoadScene(LevelName, LoadSceneMode.Single);
     }
 
     private IEnumerator Start()
     {
         yield return new WaitForSeconds(0.5f);
         List<LemmingAI> lemmingAIs = new List<LemmingAI>(GameObject.FindObjectsOfType<LemmingAI>());
-        score.text = string.Format("{0}/{0}", lemmingAIs.Count, lemmingAIs.Count);
+        _lemmingCount = lemmingAIs.Count - 1;
     }
 
     // Update is called once per frame
@@ -54,5 +58,7 @@ public class LevelManager : MonoBehaviour
             Transform lemming2 = Instantiate(ModelStore.Instance.baseLemming);
             lemming2.position = new Vector3(2, 1, 0);
         }
+
+        score.text = string.Format("{0}/{1}", Points, _lemmingCount);
     }
 }
