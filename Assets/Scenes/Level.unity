@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.43709245, g: 0.4848026, b: 0.56506664, a: 1}
+  m_IndirectSpecularColor: {r: 0.43709266, g: 0.48480296, b: 0.5650669, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -824,58 +824,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 924380191}
---- !u!1 &931876176
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 1705177111384584, guid: 3cfe6f7ec69d84742920c56070d6c4db,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 931876178}
-  - component: {fileID: 931876177}
-  m_Layer: 0
-  m_Name: CamController
-  m_TagString: Untagged
-  m_Icon: {fileID: -3839803715187477772, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &931876177
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 114681645329612942, guid: 3cfe6f7ec69d84742920c56070d6c4db,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 931876176}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61ff44ac19ef6eb4f9546fd2ccfe231e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Speed: 10
-  ZoomSpeed: 10
-  MinFov: 40
-  MaxFov: 90
-  useMouse: 1
-  Cam: {fileID: 988830528}
-  RotateSpeed: 50
-  DragSpeed: 0.5
---- !u!4 &931876178
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 4273745577296264, guid: 3cfe6f7ec69d84742920c56070d6c4db,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 931876176}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.44, y: 6.45, z: 1}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 988830532}
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &940954097
 GameObject:
   m_ObjectHideFlags: 0
@@ -1593,6 +1541,11 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1586190266}
+--- !u!20 &1602411215 stripped
+Camera:
+  m_PrefabParentObject: {fileID: 20971852993772106, guid: 3cfe6f7ec69d84742920c56070d6c4db,
+    type: 2}
+  m_PrefabInternal: {fileID: 2009405247}
 --- !u!1 &1610770645
 GameObject:
   m_ObjectHideFlags: 0
@@ -2176,6 +2129,36 @@ Prefab:
         type: 2}
       propertyPath: useMouse
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114681645329612942, guid: 3cfe6f7ec69d84742920c56070d6c4db,
+        type: 2}
+      propertyPath: _zoomSpeed
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 114681645329612942, guid: 3cfe6f7ec69d84742920c56070d6c4db,
+        type: 2}
+      propertyPath: _minFov
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 114681645329612942, guid: 3cfe6f7ec69d84742920c56070d6c4db,
+        type: 2}
+      propertyPath: _maxFov
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 114681645329612942, guid: 3cfe6f7ec69d84742920c56070d6c4db,
+        type: 2}
+      propertyPath: _cam
+      value: 
+      objectReference: {fileID: 1602411215}
+    - target: {fileID: 114681645329612942, guid: 3cfe6f7ec69d84742920c56070d6c4db,
+        type: 2}
+      propertyPath: RotateSpeed
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 114681645329612942, guid: 3cfe6f7ec69d84742920c56070d6c4db,
+        type: 2}
+      propertyPath: DragSpeed
+      value: 30
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3cfe6f7ec69d84742920c56070d6c4db, type: 2}
