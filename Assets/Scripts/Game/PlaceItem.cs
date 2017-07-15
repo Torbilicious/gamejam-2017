@@ -32,8 +32,10 @@ public class PlaceItem : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             Physics.Raycast(ray, out hit);
+            Debug.Log(hit.transform.gameObject.name);
             if (hit.transform.tag.Equals("ClickableTile"))
             {
+                Debug.Log("Clickable was clicked!");
                 Tile tile = hit.transform.parent.GetComponent<Tile>();
                 if (tile.Placeable.transform.childCount != 0) return;
                 Transform spawned = ModelStore.Instance.Get(selected);
@@ -52,7 +54,7 @@ public class PlaceItem : MonoBehaviour
                     if (distanceFromTileCenter.x > 0) spawned.transform.localEulerAngles = Vector3.up * 90;
                     else spawned.transform.localEulerAngles = Vector3.up * 270;
                 }
-
+                spawned.transform.localPosition = Vector3.zero;
                 playerMouseMode = PlayerMouseMode.FREE;
             }
         }
