@@ -801,6 +801,9 @@ MonoBehaviour:
   WallWest: 0
   Placeable: {fileID: 0}
   onFire: 0
+  burnTime: 15
+  indexX: 0
+  indexY: 0
 --- !u!136 &136645610393835898
 CapsuleCollider:
   m_ObjectHideFlags: 1
