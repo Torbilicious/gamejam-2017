@@ -145,22 +145,22 @@ public class Tile : MonoBehaviour
                 switch (orientation)
                 {
                     case 'N':
-                        tile.placeableDirection = RunDirection.South;
+                        tile.placeableDirection = RunDirection.North;
                         t.localRotation = Quaternion.Euler(Vector3.up * 0);
                         break;
 
                     case 'E':
-                        tile.placeableDirection = RunDirection.West;
+                        tile.placeableDirection = RunDirection.East;
                         t.localRotation = Quaternion.Euler(Vector3.up * 90);
                         break;
 
                     case 'S':
-                        tile.placeableDirection = RunDirection.North;
+                        tile.placeableDirection = RunDirection.South;
                         t.localRotation = Quaternion.Euler(Vector3.up * 180);
                         break;
 
                     case 'W':
-                        tile.placeableDirection = RunDirection.East;
+                        tile.placeableDirection = RunDirection.West;
                         t.localRotation = Quaternion.Euler(Vector3.up * 270);
                         break;
                 }

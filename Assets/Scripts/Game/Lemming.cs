@@ -181,7 +181,12 @@ public class Lemming : MonoBehaviour
 
             do
             {
-                nextDirection = (RunDirection)UnityEngine.Random.Range((int)possibleDirection[0], (int)possibleDirection[possibleDirection.Length - 1] + 1);
+                int next;
+                do
+                {
+                    next = UnityEngine.Random.Range((int)possibleDirection[0], (int)possibleDirection[possibleDirection.Length - 1] + 3);
+                } while (next > (int)possibleDirection[possibleDirection.Length - 1]);
+                nextDirection = (RunDirection)next;
             }
             while (!CanRunTo(nextDirection));
 
@@ -252,7 +257,7 @@ public class Lemming : MonoBehaviour
                     _placeableUseTimer = 0.5f;
                     _state = LemmingState.UsingExitRight;
                     return;
-                case "Placeable_Exit_Left":
+                case "Placeable_EXIT_Left":
                     _placeableUseTimer = 0.5f;
                     _state = LemmingState.UsingExitLeft;
                     return;
@@ -345,7 +350,7 @@ public class Lemming : MonoBehaviour
         Transform placeable = _currentTile.Placeable.transform.GetChild(0);
         RunDirection direction;
         RunDirectionHelper.ToDirection(placeable.transform.rotation.y, out direction);
-        if (!left)
+        if (left)
         {
             switch (direction)
             {
@@ -384,6 +389,7 @@ public class Lemming : MonoBehaviour
 
         if(CanRunTo(direction))
         {
+            _lastRunDirection = direction;
             SetNextWayPoint(direction);
         }
         _state = LemmingState.RunningToWaypoint;

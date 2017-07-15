@@ -56,6 +56,7 @@ public class PlaceItem : MonoBehaviour
                 }
                 spawned.transform.localPosition = Vector3.zero;
                 playerMouseMode = PlayerMouseMode.FREE;
+                spawned.name = spawned.name.Replace("(Clone)", "");
             }
         }
     }
