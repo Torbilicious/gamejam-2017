@@ -67,7 +67,7 @@ public partial class LemmingAI : MonoBehaviour {
         _nextTile = null;
         _lemmingScript = (Lemming)LemmingScript;
 
-        StartAI();
+        //StartAI();
     }
 	
 	// Update is called once per frame
