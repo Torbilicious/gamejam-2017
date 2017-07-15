@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.43709224, g: 0.48480248, b: 0.5650666, a: 1}
+  m_IndirectSpecularColor: {r: 0.43709245, g: 0.4848026, b: 0.56506664, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -2338,7 +2338,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f22bb94c0bb24084abd68584e5e4cd54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LevelName: level
   LevelModel: {fileID: 2126444496}
   score: {fileID: 1082292229}
   gameOverPanel: {fileID: 892451821}
@@ -2368,6 +2367,7 @@ MonoBehaviour:
   - {fileID: 4853936276877584, guid: 84bcddff8637c6747975cbb99879cd39, type: 2}
   - {fileID: 4400895386644664, guid: 1a79c67d151c94c44866faea5cb3eea5, type: 2}
   - {fileID: 4134738074142460, guid: a400a43e6e1174dbdbb52c9cf03d4046, type: 2}
+  - {fileID: 4086270605084842, guid: bb651e559e6a6a24c9c95e2d10f86e4c, type: 2}
 --- !u!114 &2126444496
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2416,3 +2416,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerMouseMode: 1
   selected: 
+  itemButtons: {fileID: 0}
