@@ -15,7 +15,7 @@ public class Tile : MonoBehaviour
 
     [SerializeField]
     [Range(0, 1)]
-    private float onFire;
+    public float onFire;
 
     private RunDirection placeableDirection;
 
