@@ -128,6 +128,8 @@ public class Lemming : MonoBehaviour
 
         GetComponent<Animator>().SetBool("onFire", _currentTile.IsOnFire);
         GetComponent<Animator>().SetFloat("life", health);
+        GetComponent<Animator>().SetBool("extinguishing", _state == LemmingState.UsingFireExtinguisher);
+
 
         switch (_state)
         {
