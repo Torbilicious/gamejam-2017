@@ -855,6 +855,8 @@ MonoBehaviour:
   MaxFov: 90
   useMouse: 1
   Cam: {fileID: 988830528}
+  RotateSpeed: 50
+  DragSpeed: 0.5
 --- !u!4 &931876178
 Transform:
   m_ObjectHideFlags: 0
