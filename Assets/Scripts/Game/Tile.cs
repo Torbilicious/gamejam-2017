@@ -6,11 +6,15 @@ using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
-    [SerializeField] public bool WallNorth, WallEast, WallSouth, WallWest;
+    [SerializeField]
+    public bool WallNorth, WallEast, WallSouth, WallWest;
 
-    [SerializeField] private GameObject Placeable;
+    [SerializeField]
+    private GameObject Placeable;
 
-    [SerializeField] [Range(0, 1)] private float onFire;
+    [SerializeField]
+    [Range(0, 1)]
+    private float onFire;
 
     private bool HasPlaceable
     {
@@ -28,6 +32,16 @@ public class Tile : MonoBehaviour
     {
         new RunDirectionHelper();
         Placeable = GameObject.Find(gameObject.name + "/Placeable");
+    }
+
+    private void Update()
+    {
+        //TODO: fire logic
+    }
+
+    internal void Ignite()
+    {
+        onFire += 0.1f;
     }
 
     public override string ToString()
@@ -145,10 +159,8 @@ public class Tile : MonoBehaviour
                     directions[direction] = false;
                 }
             }
-
         }
-        catch {}
+        catch { }
         return directions;
-
     }
 }
