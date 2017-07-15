@@ -112,6 +112,8 @@ GameObject:
   - component: {fileID: 4086270605084842}
   - component: {fileID: 95230565396784604}
   - component: {fileID: 111081795134935296}
+  - component: {fileID: 114125686523707796}
+  - component: {fileID: 114356590568753730}
   m_Layer: 0
   m_Name: Lemming
   m_TagString: Untagged
@@ -589,8 +591,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1077812621567234}
   m_LocalRotation: {x: 0, y: 0.98888654, z: -0, w: -0.1486723}
-  m_LocalPosition: {x: 800, y: 4, z: 1329}
-  m_LocalScale: {x: 1000, y: 1000, z: 1000}
+  m_LocalPosition: {x: -756.297, y: 1485.4567, z: -1139.6316}
+  m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children:
   - {fileID: 4051594195514754}
   - {fileID: 4539976286226538}
@@ -1008,6 +1010,34 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 1
   m_CullingType: 0
+--- !u!114 &114125686523707796
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1077812621567234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c3ed8a964729aa4b9ba47c53e5fa969, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sanity: 1
+  courage: 1
+  health: 1
+  Speed: 1
+--- !u!114 &114356590568753730
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1077812621567234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c08ca53e0fa921a4cb1276b36f5a48cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GameManager: {fileID: 0}
+  LemmingScript: {fileID: 114125686523707796}
 --- !u!137 &137056529271989018
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
