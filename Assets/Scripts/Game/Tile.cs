@@ -11,7 +11,7 @@ public class Tile : MonoBehaviour
 
     [HideInInspector]
     [SerializeField]
-    private GameObject Placeable;
+    public GameObject Placeable;
 
     [SerializeField]
     [Range(0, 1)]
