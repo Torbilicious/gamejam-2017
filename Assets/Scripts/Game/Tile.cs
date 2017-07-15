@@ -2,28 +2,32 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
+using NUnit.Framework.Constraints;
 using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
-    [SerializeField]
-    public bool WallNorth, WallEast, WallSouth, WallWest;
+    [SerializeField] public bool WallNorth, WallEast, WallSouth, WallWest;
 
-    [SerializeField]
-    private GameObject placeable;
+    [SerializeField] private GameObject placeable;
 
-    [SerializeField]
-    [Range(0, 1)]
-    private float onFire = 0;
+    [SerializeField] [Range(0, 1)] private float onFire;
 
-    // Use this for initialization
-    private void Start()
+    private bool HasPlaceable
     {
+        get
+        {
+            if (placeable == null)
+            {
+                return false;
+            }
+            return placeable.transform.childCount == 0;
+        }
     }
 
-    // Update is called once per frame
-    private void Update()
+    private void Start()
     {
+        new RunDirectionHelper();
     }
 
     public override string ToString()
@@ -49,7 +53,7 @@ public class Tile : MonoBehaviour
     {
         if (serialized.Length < 5) return null;
         Transform o = Instantiate(ModelStore.Instance.baseTile);
-        o.name += (long)(DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds;
+        o.name += (long) (DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds;
         Tile tile = o.gameObject.AddComponent<Tile>();
         char[] ser = serialized.ToCharArray();
         tile.WallNorth = ser[0] == '1';
@@ -58,5 +62,24 @@ public class Tile : MonoBehaviour
         tile.WallWest = ser[3] == '1';
         tile.ApplyWalls();
         return tile;
+    }
+
+    public Dictionary<RunDirection, bool> QueryDirections()
+    {
+        var directions = new Dictionary<RunDirection, bool>
+        {
+            {RunDirection.North, !WallNorth},
+            {RunDirection.East, !WallEast},
+            {RunDirection.South, !WallSouth},
+            {RunDirection.West, !WallWest}
+        };
+        
+        if (HasPlaceable)
+        {
+            var blockedDirection = RunDirectionHelper.ToDirection(transform.GetChild(0).localRotation.y);
+            directions[blockedDirection] = false;
+        }
+
+        return directions;
     }
 }
