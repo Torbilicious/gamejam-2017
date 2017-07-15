@@ -1,18 +1,15 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    [SerializeField] private float Speed = 10, ZoomSpeed = 10, MinFov = 40, MaxFov = 90;
+    [SerializeField] private float _zoomSpeed = 10, _minFov = 40, _maxFov = 90;
 
-    [SerializeField] private bool useMouse = true;
-
-    [SerializeField] private Camera Cam;
+    [SerializeField] private Camera _cam;
 
     private Quaternion _initalCamQuaternion;
     private Vector3 _initalCam;
-    
-    
+
+
     private Vector3 _rortateOrigin;
     public float RotateSpeed = 30.0f;
 
@@ -22,12 +19,12 @@ public class CameraController : MonoBehaviour
     // Use this for initialization
     private void Start()
     {
-        mouse = Input.mousePosition;
-        _initalCamQuaternion = Cam.transform.rotation;
-        _initalCam = Cam.transform.localPosition;
+        _mouse = Input.mousePosition;
+        _initalCamQuaternion = _cam.transform.rotation;
+        _initalCam = _cam.transform.localPosition;
     }
 
-    private Vector2 mouse;
+    private Vector2 _mouse;
 
     // Update is called once per frame
     private void Update()
@@ -44,7 +41,7 @@ public class CameraController : MonoBehaviour
         {
             ResetCamera();
         }
-        if (Cam != null)
+        if (_cam != null)
         {
             ZoomCamera();
         }
@@ -81,31 +78,30 @@ public class CameraController : MonoBehaviour
 
         transform.Rotate(
             transform.InverseTransformDirection(Vector3.down),
-            Mathf.Clamp((mouse.x - _rortateOrigin.x) * -1, -1, 1) * Time.deltaTime * RotateSpeed
+            Mathf.Clamp((_mouse.x - _rortateOrigin.x) * -1, -1, 1) * Time.deltaTime * RotateSpeed
         );
-        mouse = Input.mousePosition;
+        _mouse = Input.mousePosition;
     }
 
     private void ResetCamera()
     {
         transform.position = new Vector3(0, transform.position.y, 0);
-        Cam.transform.localPosition = _initalCam;
-        Cam.transform.rotation = _initalCamQuaternion;
+        _cam.transform.localPosition = _initalCam;
+        _cam.transform.rotation = _initalCamQuaternion;
     }
 
     private void ZoomCamera()
     {
 //        Cam.fieldOfView += -Input.GetAxis("Mouse ScrollWheel") * ZoomSpeed;
 
-        Cam.transform.Translate(
-            Vector3.forward * Time.deltaTime * Input.GetAxis("Mouse ScrollWheel") * ZoomSpeed
+        _cam.transform.Translate(
+            Vector3.forward * Time.deltaTime * Input.GetAxis("Mouse ScrollWheel") * _zoomSpeed
         );
 
-
-        Cam.fieldOfView = Mathf.Clamp(Cam.fieldOfView, MinFov, MaxFov);
+        _cam.fieldOfView = Mathf.Clamp(_cam.fieldOfView, _minFov, _maxFov);
     }
 
-    private bool IsMouseOnScreen()
+    private static bool IsMouseOnScreen()
     {
         Rect screenRect = new Rect(0, 0, Screen.width, Screen.height);
         return screenRect.Contains(Input.mousePosition);

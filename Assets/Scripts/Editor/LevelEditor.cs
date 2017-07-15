@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
@@ -7,22 +6,22 @@ using UnityEngine;
 
 public class LevelEditor : EditorWindow
 {
-    private const String levelPath = "/Resources/Levels/";
+    private const string LevelPath = "/Resources/Levels/";
 
     [MenuItem("Fire Lemmings/Serialize Level")]
     public static void SerializeLevel()
     {
-        LevelEditor window = ScriptableObject.CreateInstance<LevelEditor>();
+        LevelEditor window = CreateInstance<LevelEditor>();
         window.position = new Rect(Screen.width / 2, Screen.height / 2, 250, 100);
         window.Show();
     }
 
-    private string filename = "level.csv";
+    private string _filename = "level.csv";
 
     private void OnGUI()
     {
         GUILayout.Label("Level name");
-        filename = GUILayout.TextField(filename);
+        _filename = GUILayout.TextField(_filename);
         if (GUILayout.Button("Export"))
         {
             LevelModel lm = GameObject.FindObjectOfType<LevelModel>();
@@ -30,28 +29,28 @@ public class LevelEditor : EditorWindow
             else
             {
                 Debug.Log("Starting serialization of level!");
-                string path = Application.dataPath + levelPath;
+                string path = Application.dataPath + LevelPath;
                 if (!Directory.Exists(path)) Directory.CreateDirectory(path);
-                path += filename;
+                path += _filename;
 
                 List<Tile> scannedTiles = new List<Tile>(FindObjectsOfType<Tile>());
                 int maxX, maxZ;
                 scannedTiles.Sort((Tile a, Tile b) =>
                 {
-                    return (int)(Math.Round(a.transform.position.z) - Math.Round(b.transform.position.z));
+                    return (int) (Math.Round(a.transform.position.z) - Math.Round(b.transform.position.z));
                 });
-                maxZ = (int)scannedTiles[scannedTiles.Count - 1].transform.position.z;
+                maxZ = (int) scannedTiles[scannedTiles.Count - 1].transform.position.z;
                 scannedTiles.Sort((Tile a, Tile b) =>
                 {
-                    return (int)(Math.Round(a.transform.position.x) - Math.Round(b.transform.position.x));
+                    return (int) (Math.Round(a.transform.position.x) - Math.Round(b.transform.position.x));
                 });
-                maxX = (int)scannedTiles[scannedTiles.Count - 1].transform.position.x;
+                maxX = (int) scannedTiles[scannedTiles.Count - 1].transform.position.x;
                 Tile[][] sortedTiles = new Tile[maxZ + 1][];
                 for (int i = 0; i < sortedTiles.Length; i++) sortedTiles[i] = new Tile[maxX + 1];
                 foreach (Tile tile in scannedTiles)
                 {
-                    int z = (int)tile.transform.position.z;
-                    int x = (int)tile.transform.position.x;
+                    int z = (int) tile.transform.position.z;
+                    int x = (int) tile.transform.position.x;
                     sortedTiles[z][x] = tile;
                 }
                 lm.Tiles = sortedTiles;
@@ -68,12 +67,15 @@ public class LevelEditor : EditorWindow
             if (lm == null) Debug.LogError("No instance of LevelModel found in this scene!");
             else
             {
-                string level = File.ReadAllText(Application.dataPath + levelPath + filename);
+                string level = File.ReadAllText(Application.dataPath + LevelPath + _filename);
                 try
                 {
-                    foreach (Tile[] tiles in lm.Tiles) foreach (Tile tile in tiles) if (tile != null) DestroyImmediate(tile.gameObject);
+                    foreach (Tile[] tiles in lm.Tiles)
+                    foreach (Tile tile in tiles) if (tile != null) DestroyImmediate(tile.gameObject);
                 }
-                catch (Exception e) { }
+                catch (Exception e)
+                {
+                }
                 lm.Deserialize(level);
             }
         }
