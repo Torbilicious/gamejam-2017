@@ -9,7 +9,7 @@ public class Tile : MonoBehaviour
     private Transform baseTile, wall;
 
     [SerializeField]
-    private bool wallNorth, wallEast, wallSouth, wallWest;
+    public bool WallNorth, WallEast, WallSouth, WallWest;
 
     [SerializeField]
     private GameObject placeable;
@@ -31,16 +31,21 @@ public class Tile : MonoBehaviour
     public override string ToString()
     {
         StringBuilder sb = new StringBuilder();
-        sb.Append(wallNorth ? '1' : '0');
-        sb.Append(wallEast ? '1' : '0');
-        sb.Append(wallSouth ? '1' : '0');
-        sb.Append(wallWest ? '1' : '0');
+        sb.Append(WallNorth ? '1' : '0');
+        sb.Append(WallEast ? '1' : '0');
+        sb.Append(WallSouth ? '1' : '0');
+        sb.Append(WallWest ? '1' : '0');
         sb.Append("basic");
         return sb.ToString();
     }
 
     public static Tile Parse(string serialized)
     {
-        return null;
+        Tile tile = new Tile();
+        tile.WallNorth = serialized[0] == 1;
+        tile.WallEast  = serialized[1] == 1;
+        tile.WallSouth = serialized[2] == 1;
+        tile.WallWest  = serialized[3] == 1;
+        return tile;
     }
 }
