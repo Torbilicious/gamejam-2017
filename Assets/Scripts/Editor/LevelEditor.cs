@@ -15,9 +15,12 @@ public class LevelEditor : EditorWindow
         window.Show();
     }
 
+    private string filename = "level.csv";
+
     private void OnGUI()
     {
-        string filename = GUILayout.TextField("level.csv");
+        GUILayout.Label("Level name");
+        filename = GUILayout.TextField(filename);
         if (GUILayout.Button("Export"))
         {
             LevelModel lm = GameObject.FindObjectOfType<LevelModel>();
