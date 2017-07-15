@@ -32,7 +32,7 @@ public class ModelStore : MonoBehaviour
     {
         foreach (Transform spawnable in spawnables)
         {
-            if (spawnable.name.Equals(name)) return spawnable;
+            if (spawnable != null && spawnable.name.Equals(name)) return spawnable;
         }
         return null;
     }
