@@ -40,6 +40,8 @@ PlayerSettings:
   m_SplashScreenLogos:
   - logo: {fileID: 21300000, guid: 80f7796c0486dea41941e100e2cb435e, type: 3}
     duration: 2
+  - logo: {fileID: 21300000, guid: 5e885ef6c2f15a04c8cdbc9cc1b868b2, type: 3}
+    duration: 2
   m_SplashScreenBackgroundLandscape: {fileID: 0}
   m_SplashScreenBackgroundPortrait: {fileID: 0}
   m_VirtualRealitySplashScreen: {fileID: 0}
@@ -233,7 +235,7 @@ PlayerSettings:
   - m_BuildTarget: 
     m_Icons:
     - serializedVersion: 2
-      m_Icon: {fileID: 2800000, guid: 7f0b698c6298f2542ab7fd61b82f4e7d, type: 3}
+      m_Icon: {fileID: 2800000, guid: 9f732a942314fa64c8b0b3240e9030ff, type: 3}
       m_Width: 128
       m_Height: 128
   m_BuildTargetBatching: []
