@@ -11,7 +11,9 @@ public class Lemming : MonoBehaviour
         Idle,
         RunningToWaypoint,
         WaypointReached,
-        Dead
+        Dead,
+        UsingFireExtinguisher,
+        UsingFireAlarmButton
     }
 
     #endregion Internal Structures
@@ -32,7 +34,9 @@ public class Lemming : MonoBehaviour
 
     private Tile _currentTile;
     private Tile _nextTile;
+
     private float _removeTimer;
+    private float _placeableUseTimer;
 
     /// <summary>
     /// The lemming is currently in this state.
@@ -142,6 +146,14 @@ public class Lemming : MonoBehaviour
             case LemmingState.RunningToWaypoint:
                 RunToWaypoint();
                 break;
+
+            case LemmingState.UsingFireExtinguisher:
+                HandleFireExtinguisher();
+                break;
+
+            case LemmingState.UsingFireAlarmButton:
+                HandleFireAlarmButton();
+                break;
         }
     }
 
@@ -208,7 +220,24 @@ public class Lemming : MonoBehaviour
         //TODO: check here if there is a placeable on the current tile
         //set LemmingSTate.Idle if no interaction is possible
 
-        if (_currentTile) ;
+        Transform[] x = _currentTile.gameObject.GetComponentsInChildren<Transform>();
+        if (_currentTile.Placeable.transform.childCount != 0)
+        {
+            Transform placeable = _currentTile.Placeable.transform.GetChild(0);
+
+            switch (placeable.name)
+            {
+                case "Placeable_Fire_Extinguisher":
+                    _placeableUseTimer = 3.0f;
+                    _state = LemmingState.UsingFireExtinguisher;
+                    Destroy(placeable.gameObject);
+                    return;
+                case "Placeable_Placeable_Fire_Alarm_Button":
+                    _placeableUseTimer = 1.0f;
+                    _state = LemmingState.UsingFireAlarmButton;
+                    return;
+            }
+        }
 
         _state = LemmingState.Idle;
     }
@@ -245,4 +274,45 @@ public class Lemming : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
+
+    #region Placeable Handling
+
+    private void HandleFireExtinguisher()
+    {
+        for (int x = (int)_currentTile.transform.position.z - 1; x != (int)_currentTile.transform.position.z + 1; x++)
+        {
+            for (int y = (int)_currentTile.transform.position.x - 1; y != (int)_currentTile.transform.position.x + 1; y++)
+            {
+                Tile t = LevelModel.Instance.TryGetTile(x, y);
+                if (t != null)
+                {
+                    t.onFire -= Time.deltaTime;
+                    if (t.onFire < 0)
+                    {
+                        t.onFire = 0;
+                    }
+                }
+            }
+        }
+
+        _placeableUseTimer -= Time.deltaTime;
+        if(_placeableUseTimer <= 0)
+        {
+            _state = LemmingState.Idle;
+        }
+    }
+
+    private void HandleFireAlarmButton()
+    {
+        LevelManager.FireAlarmTriggered = true;
+
+        _placeableUseTimer -= Time.deltaTime;
+        if (_placeableUseTimer <= 0)
+        {
+            _state = LemmingState.Idle;
+        }
+
+    }
+
+    #endregion
 }
