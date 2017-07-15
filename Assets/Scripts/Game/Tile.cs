@@ -34,12 +34,15 @@ public class Tile : MonoBehaviour
     private void Start()
     {
         new RunDirectionHelper();
+        fire = GameObject.Find(gameObject.name + "/Fire");
         Placeable = GameObject.Find(gameObject.name + "/Placeable");
     }
 
+    private GameObject fire;
+
     private void Update()
     {
-        //TODO: fire logic
+        if (fire != null) fire.SetActive(onFire > 0.05f);
     }
 
     internal void Ignite()
@@ -163,7 +166,7 @@ public class Tile : MonoBehaviour
                 }
             }
 
-            Tile north = LevelModel.Instance.TryGetTile((int)transform.position.z + 1, (int)transform.position.x);
+            /*Tile north = LevelModel.Instance.TryGetTile((int)transform.position.z + 1, (int)transform.position.x);
             Tile south = LevelModel.Instance.TryGetTile((int)transform.position.z - 1, (int)transform.position.x);
             Tile east  = LevelModel.Instance.TryGetTile((int)transform.position.z, (int)transform.position.x + 1);
             Tile west  = LevelModel.Instance.TryGetTile((int)transform.position.z, (int)transform.position.x - 1);
@@ -171,7 +174,7 @@ public class Tile : MonoBehaviour
             if (north && north.IsOnFire) directions[RunDirection.North] = false;
             if (south && south.IsOnFire) directions[RunDirection.South] = false;
             if (east  && east.IsOnFire)  directions[RunDirection.East]  = false;
-            if (west  && west.IsOnFire)  directions[RunDirection.West]  = false;
+            if (west  && west.IsOnFire)  directions[RunDirection.West]  = false;*/
         }
         catch { }
         return directions;
