@@ -81,6 +81,12 @@ public class Lemming : MonoBehaviour
             return;
         }
 
+        if(health <= 0)
+        {
+            Destroy(this.gameObject);
+            return;
+        }
+
         if (_tiles.Length == 0)
         {
             _tiles = FindObjectsOfType<Tile>();
@@ -106,12 +112,22 @@ public class Lemming : MonoBehaviour
             }
         }
 
-        QueryFireState();
+        if(_currentTile.IsOnFire)
+        {
+            //TODO: activate burn animation
+            health -= Time.deltaTime / 100 * 70;
+
+        }
+        else
+        {
+            //TODO: activate normal animation
+        }
 
         switch (_state)
         {
             case LemmingState.Burning:
-                GetComponent<Animation>().Play("Lemming_Burning");
+                //GetComponent<Animation>().Play("Lemming_Burning");
+
                 break;
 
             case LemmingState.Idle:
@@ -131,14 +147,6 @@ public class Lemming : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         FindNextWaypoint(true);
-    }
-
-    private void QueryFireState()
-    {
-        if (_currentTile.IsOnFire)
-        {
-            _state = LemmingState.Burning;
-        }
     }
 
     private void FindNextWaypoint(bool ignoreLast = false)
