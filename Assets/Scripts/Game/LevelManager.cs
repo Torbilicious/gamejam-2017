@@ -72,14 +72,6 @@ public class LevelManager : MonoBehaviour
             _levelLoaded = true;
             TextAsset levelFile = Resources.Load("Levels/" + LevelName) as TextAsset;
             LevelModel.Deserialize(levelFile.text);
-
-            /*Transform lemming = Instantiate(ModelStore.Instance.baseLemming);
-            lemming.position = new Vector3(0, 1, 0);
-
-            Transform lemming2 = Instantiate(ModelStore.Instance.baseLemming);
-            lemming2.position = new Vector3(1, 1, 0);
-            Transform lemming3 = Instantiate(ModelStore.Instance.baseLemming);
-            lemming3.position = new Vector3(2, 1, 0);*/
         }
 
         if(_levelLoaded)

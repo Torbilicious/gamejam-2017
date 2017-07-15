@@ -14,7 +14,9 @@ public class Lemming : MonoBehaviour
         WaypointReached,
         Dead,
         UsingFireExtinguisher,
-        UsingFireAlarmButton
+        UsingFireAlarmButton,
+        UsingExitRight,
+        UsingExitLeft
     }
 
     #endregion Internal Structures
@@ -148,6 +150,15 @@ public class Lemming : MonoBehaviour
             case LemmingState.UsingFireAlarmButton:
                 HandleFireAlarmButton();
                 break;
+
+            case LemmingState.UsingExitLeft:
+                HandleExitSign(true);
+                break;
+
+            case LemmingState.UsingExitRight:
+                HandleExitSign(false);
+                break;
+
         }
     }
 
@@ -237,6 +248,14 @@ public class Lemming : MonoBehaviour
                     _placeableUseTimer = 1.0f;
                     _state = LemmingState.UsingFireAlarmButton;
                     return;
+                case "Placeable_EXIT_Right":
+                    _placeableUseTimer = 0.5f;
+                    _state = LemmingState.UsingExitRight;
+                    return;
+                case "Placeable_Exit_Left":
+                    _placeableUseTimer = 0.5f;
+                    _state = LemmingState.UsingExitLeft;
+                    return;
             }
         }
 
@@ -313,6 +332,61 @@ public class Lemming : MonoBehaviour
             _state = LemmingState.Idle;
         }
 
+    }
+
+    private void HandleExitSign(bool left)
+    {
+        _placeableUseTimer -= Time.deltaTime;
+        if (_placeableUseTimer > 0)
+        {
+            return;
+        }
+
+        Transform placeable = _currentTile.Placeable.transform.GetChild(0);
+        RunDirection direction;
+        RunDirectionHelper.ToDirection(placeable.transform.rotation.y, out direction);
+        if (!left)
+        {
+            switch (direction)
+            {
+                case RunDirection.North:
+                    direction = RunDirection.West;
+                    break;
+                case RunDirection.West:
+                    direction = RunDirection.South;
+                    break;
+                case RunDirection.South:
+                    direction = RunDirection.East;
+                    break;
+                case RunDirection.East:
+                    direction = RunDirection.North;
+                    break;
+            } 
+        }
+        else
+        {
+            switch (direction)
+            {
+                case RunDirection.North:
+                    direction = RunDirection.East;
+                    break;
+                case RunDirection.West:
+                    direction = RunDirection.North;
+                    break;
+                case RunDirection.South:
+                    direction = RunDirection.West;
+                    break;
+                case RunDirection.East:
+                    direction = RunDirection.South;
+                    break;
+            }
+        }
+
+        if(CanRunTo(direction))
+        {
+            SetNextWayPoint(direction);
+        }
+        _state = LemmingState.RunningToWaypoint;
     }
 
     #endregion
