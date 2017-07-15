@@ -113,6 +113,7 @@ GameObject:
   - component: {fileID: 95230565396784604}
   - component: {fileID: 111081795134935296}
   - component: {fileID: 114125686523707796}
+  - component: {fileID: 114389738322164498}
   - component: {fileID: 114356590568753730}
   - component: {fileID: 65641229569226254}
   - component: {fileID: 54107538013475184}
@@ -593,8 +594,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1077812621567234}
-  m_LocalRotation: {x: 0, y: 0.98888654, z: -0, w: -0.1486723}
-  m_LocalPosition: {x: 3.7026434, y: -1.4857473, z: -0.17259383}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children:
   - {fileID: 4051594195514754}
@@ -606,7 +607,7 @@ Transform:
   - {fileID: 4024112095459384}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 197.1, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4097255611457138
 Transform:
   m_ObjectHideFlags: 1
@@ -1080,6 +1081,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GameManager: {fileID: 0}
   LemmingScript: {fileID: 114125686523707796}
+--- !u!114 &114389738322164498
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1077812621567234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c29b9002842119043bb4ef613407ccb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!137 &137056529271989018
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
