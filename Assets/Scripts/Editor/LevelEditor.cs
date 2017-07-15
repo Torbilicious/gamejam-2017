@@ -67,7 +67,11 @@ public class LevelEditor : EditorWindow
             else
             {
                 string level = File.ReadAllText(Application.dataPath + "/Levels/" + filename);
-                foreach (Tile[] tiles in lm.Tiles) foreach (Tile tile in tiles) if (tile != null) DestroyImmediate(tile.gameObject);
+                try
+                {
+                    foreach (Tile[] tiles in lm.Tiles) foreach (Tile tile in tiles) if (tile != null) DestroyImmediate(tile.gameObject);
+                }
+                catch (Exception e) { }
                 lm.Deserialize(level);
             }
         }
