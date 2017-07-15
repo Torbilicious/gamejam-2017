@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Lemming : MonoBehaviour
 {
@@ -53,6 +54,7 @@ public class Lemming : MonoBehaviour
     public void StartAI()
     {
         _state = LemmingState.Idle;
+        GetComponent<Animator>().Play("Lemming_Walking", -1, Random.Range(0.0f, 1.0f));
     }
 
     public void OnWaypointReached()
