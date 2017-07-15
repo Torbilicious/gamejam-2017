@@ -62,4 +62,9 @@ public class LevelManager : MonoBehaviour
 
         score.text = string.Format("{0}/{1}", Points, _lemmingCount);
     }
+
+    public void Exit2LevelMenu()
+    {
+        SceneManager.LoadScene("Menu_LevelSelection");
+    }
 }
