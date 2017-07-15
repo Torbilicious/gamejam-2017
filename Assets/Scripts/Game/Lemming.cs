@@ -221,9 +221,6 @@ public class Lemming : MonoBehaviour
 
     private void CheckForObjectInteraction()
     {
-        //TODO: check here if there is a placeable on the current tile
-        //set LemmingSTate.Idle if no interaction is possible
-
         Transform[] x = _currentTile.gameObject.GetComponentsInChildren<Transform>();
         if (_currentTile.Placeable.transform.childCount != 0)
         {

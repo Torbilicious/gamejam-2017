@@ -36,22 +36,11 @@ public class IngameUIHandler : MonoBehaviour {
 
     public void OnSelectItem5()
     {
-        PlaceItem.Instance.selected = "Placeable_EXIT";
+        PlaceItem.Instance.selected = "Placeable_EXIT_Left";
     }
 
     public void OnSelectItem6()
     {
-
+        PlaceItem.Instance.selected = "Placeable_EXIT_Right";
     }
-
-    public void OnSelectItem7()
-    {
-
-    }
-
-    public void OnSelectItem8()
-    {
-
-    }
-
 }
