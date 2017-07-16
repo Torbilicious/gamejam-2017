@@ -60,7 +60,7 @@ public class LevelManager : MonoBehaviour
     {
         if (gameStarted && GameObject.FindObjectsOfType<Lemming>().Length <= 1)
         {
-            int score = Points - ((_lemmingCount * 10) / 8);
+            int score = Points / 2;
             gameOverPanel.transform.GetComponentInChildren<Text>().text = score < 0 ? "You loose!" : "You win!\nBonus: " + score;
             gameOverPanel.SetActive(true);
         }
@@ -78,6 +78,7 @@ public class LevelManager : MonoBehaviour
             _levelLoaded = true;
             TextAsset levelFile = Resources.Load("Levels/" + LevelName) as TextAsset;
             LevelModel.Deserialize(levelFile.text);
+            FireAlarmTriggered = false;
         }
 
         if (_levelLoaded)
