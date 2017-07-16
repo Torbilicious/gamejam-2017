@@ -351,7 +351,7 @@ public class Lemming : MonoBehaviour
 
         Transform placeable = _currentTile.Placeable.transform.GetChild(0);
         RunDirection direction;
-        RunDirectionHelper.ToDirection(placeable.transform.rotation.y, out direction);
+        RunDirectionHelper.ToDirection(placeable.transform.localEulerAngles.y, out direction);
         if (left)
         {
             switch (direction)
