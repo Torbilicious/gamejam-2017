@@ -175,6 +175,15 @@ public class Lemming : MonoBehaviour
 
     private void FindNextWaypoint(bool ignoreLast = false)
     {
+        
+        if(!ignoreLast)
+        {
+            if(Random.value < 0.33f)
+            {
+                ignoreLast = true;
+            }
+        }
+
         if (CanRunTo(_lastRunDirection) && !ignoreLast)
         {
             SetNextWayPoint(_lastRunDirection);

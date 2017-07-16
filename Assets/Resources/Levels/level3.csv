@@ -1,0 +1,9 @@
+0011,1000Placeable_WindowS,1110LemmingW,0011,0000Placeable_WindowS,0000Placeable_WindowS,0110,0001,0110,
+0101,0011,0110,0101,0101,1001LemmingN,1100LemmingN,1001Placeable_CookerN,0000Placeable_WindowE,
+0100,1001,0000,1100,0101,0011,1010,1010,1100,
+0001,1110LemmingW,1001,1010,0100,1001,1010,1010,0110,
+0100Placeable_WindowW,0011,0010,0010,1100,0011,1010,0110,0001Placeable_WindowE,
+1001,1100,0001Placeable_CookerW,0100,0011,1000,0110,0101,0001Placeable_WindowE,
+0011,0010,1000,1100,0001,0010,0100,1001,1100,
+0100Placeable_WindowW,1001,1010LemmingN,1010LemmingN,1100,0101,0001,0010Placeable_CookerS,0110Placeable_TableE,
+1001,0010Placeable_WindowN,0010Placeable_WindowN,0010Placeable_WindowN,0010Placeable_WindowN,1100,1001LemmingN,0000Placeable_WindowN,1100Placeable_ChairW
