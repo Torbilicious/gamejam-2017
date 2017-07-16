@@ -35,6 +35,7 @@ public class LevelManager : MonoBehaviour
 
         new List<FireSource>(FindObjectsOfType<FireSource>()).ForEach(s => s.GameStarted());
         gameStarted = true;
+        new List<GameObject>(GameObject.FindGameObjectsWithTag("ClickableTile")).ForEach(g => Destroy(g));
     }
 
     private bool gameStarted = false;
