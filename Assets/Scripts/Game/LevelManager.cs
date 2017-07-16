@@ -74,7 +74,7 @@ public class LevelManager : MonoBehaviour
         //Load the level
         if (!_levelLoaded && ModelStore.Instance != null)
         {
-            MusicManager.Instance.PlayGameMusic();
+            if (MusicManager.Instance != null) MusicManager.Instance.PlayGameMusic();
             _levelLoaded = true;
             TextAsset levelFile = Resources.Load("Levels/" + LevelName) as TextAsset;
             LevelModel.Deserialize(levelFile.text);
@@ -88,7 +88,7 @@ public class LevelManager : MonoBehaviour
 
     public void Exit2LevelMenu()
     {
-        MusicManager.Instance.PlayMenuMusic();
+        if (MusicManager.Instance != null) MusicManager.Instance.PlayMenuMusic();
         SceneManager.LoadScene("Menu_LevelSelection");
     }
 }
