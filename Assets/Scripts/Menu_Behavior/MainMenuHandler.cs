@@ -10,6 +10,11 @@ public class MainMenuHandler : MonoBehaviour {
 
     public string LevelSelection = "Menu_LevelSelection";
 
+    public void Update()
+    {
+        Camera.main.backgroundColor = new Color(0, 0, 0, 0);
+
+    }
     public void GoToLevelSelection()
     {
         SceneManager.LoadScene(LevelSelection, LoadSceneMode.Single);
@@ -19,4 +24,5 @@ public class MainMenuHandler : MonoBehaviour {
     {
         Application.Quit();
     }
+
 }
