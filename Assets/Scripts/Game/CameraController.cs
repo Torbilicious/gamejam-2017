@@ -59,8 +59,8 @@ public class CameraController : MonoBehaviour
 
         Vector3 pos = Camera.main.ScreenToViewportPoint(Input.mousePosition - _dragOrigin);
         Vector3 move = new Vector3(
-            pos.x * Time.deltaTime * DragSpeed,
-            0, pos.y * Time.deltaTime * DragSpeed
+            pos.x * Time.deltaTime / Time.timeScale * DragSpeed,
+            0, pos.y * Time.deltaTime  / Time.timeScale * DragSpeed
         );
 
         transform.Translate(move, Space.Self);
@@ -78,7 +78,7 @@ public class CameraController : MonoBehaviour
 
         transform.Rotate(
             transform.InverseTransformDirection(Vector3.down),
-            Mathf.Clamp((_mouse.x - _rortateOrigin.x) * -1, -1, 1) * Time.deltaTime * RotateSpeed
+            Mathf.Clamp((_mouse.x - _rortateOrigin.x) * -1, -1, 1) * Time.deltaTime / Time.timeScale * RotateSpeed
         );
         _mouse = Input.mousePosition;
     }
@@ -95,7 +95,7 @@ public class CameraController : MonoBehaviour
 //        Cam.fieldOfView += -Input.GetAxis("Mouse ScrollWheel") * ZoomSpeed;
 
         _cam.transform.Translate(
-            Vector3.forward * Time.deltaTime * Input.GetAxis("Mouse ScrollWheel") * _zoomSpeed
+            Vector3.forward * Time.deltaTime  / Time.timeScale * Input.GetAxis("Mouse ScrollWheel") * _zoomSpeed
         );
 
         _cam.fieldOfView = Mathf.Clamp(_cam.fieldOfView, _minFov, _maxFov);
