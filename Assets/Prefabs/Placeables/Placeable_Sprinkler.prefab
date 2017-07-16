@@ -38,7 +38,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4575064242899222}
   m_Layer: 0
-  m_Name: Sprinkler
+  m_Name: Placeable_Sprinkler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
