@@ -26,7 +26,7 @@ public class PlaceItem : MonoBehaviour
     private GameObject hovering = null;
 
     [SerializeField]
-    private Texture2D tex_tile, tex_tile_north, tex_tile_east, tex_tile_south, tex_tile_west;
+    private Texture2D tex_tile, tex_tile_north, tex_tile_east, tex_tile_south, tex_tile_west, tex_tile_not_allowed;
 
     // Update is called once per frame
     private void Update()
@@ -47,7 +47,11 @@ public class PlaceItem : MonoBehaviour
                 {
                     Vector2 distanceFromTileCenter;
                     distanceFromTileCenter = new Vector3(hoverHit.point.x - hoverHit.transform.position.x, hoverHit.point.z - hoverHit.transform.position.z);
-                    if (Mathf.Abs(distanceFromTileCenter.y) > Mathf.Abs(distanceFromTileCenter.x))
+                    if (hovering.transform.parent.GetComponent<Tile>().Placeable.transform.childCount > 0)
+                    {
+                        hovering.GetComponent<Renderer>().material.mainTexture = tex_tile_not_allowed;
+                    }
+                    else if (Mathf.Abs(distanceFromTileCenter.y) > Mathf.Abs(distanceFromTileCenter.x))
                     {
                         if (distanceFromTileCenter.y > 0) hovering.GetComponent<Renderer>().material.mainTexture = tex_tile_north;
                         else hovering.GetComponent<Renderer>().material.mainTexture = tex_tile_south;

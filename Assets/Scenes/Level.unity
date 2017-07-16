@@ -2722,6 +2722,8 @@ MonoBehaviour:
   tex_tile_east: {fileID: 2800000, guid: 35a5fa5cc74c6e7408d627bdfecc89d4, type: 3}
   tex_tile_south: {fileID: 2800000, guid: 4dbc21bd2c4c07f42a7dd9a05de55191, type: 3}
   tex_tile_west: {fileID: 2800000, guid: 7eb930e60b5fd1e4abf84e3a7cdf63f9, type: 3}
+  tex_tile_not_allowed: {fileID: 2800000, guid: dbf6925821bcf7a468bfd29b4bdc7173,
+    type: 3}
 --- !u!114 &2126444500
 MonoBehaviour:
   m_ObjectHideFlags: 0
