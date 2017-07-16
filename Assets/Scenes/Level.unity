@@ -1832,11 +1832,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1586190266}
---- !u!20 &1602411215 stripped
-Camera:
-  m_PrefabParentObject: {fileID: 20971852993772106, guid: 3cfe6f7ec69d84742920c56070d6c4db,
-    type: 2}
-  m_PrefabInternal: {fileID: 2009405247}
 --- !u!1 &1630831860
 GameObject:
   m_ObjectHideFlags: 0
@@ -2126,10 +2121,6 @@ Prefab:
     - target: {fileID: 4648010545492210, guid: 6ebd9f18622eb9343905dac4caac6a94, type: 2}
       propertyPath: m_RootOrder
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1963141991226164, guid: 6ebd9f18622eb9343905dac4caac6a94, type: 2}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6ebd9f18622eb9343905dac4caac6a94, type: 2}
@@ -2479,49 +2470,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 4273745577296264, guid: 3cfe6f7ec69d84742920c56070d6c4db, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4273745577296264, guid: 3cfe6f7ec69d84742920c56070d6c4db, type: 2}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114681645329612942, guid: 3cfe6f7ec69d84742920c56070d6c4db,
-        type: 2}
-      propertyPath: useMouse
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114681645329612942, guid: 3cfe6f7ec69d84742920c56070d6c4db,
-        type: 2}
-      propertyPath: _zoomSpeed
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 114681645329612942, guid: 3cfe6f7ec69d84742920c56070d6c4db,
-        type: 2}
-      propertyPath: _minFov
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 114681645329612942, guid: 3cfe6f7ec69d84742920c56070d6c4db,
-        type: 2}
-      propertyPath: _maxFov
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 114681645329612942, guid: 3cfe6f7ec69d84742920c56070d6c4db,
-        type: 2}
-      propertyPath: _cam
-      value: 
-      objectReference: {fileID: 1602411215}
-    - target: {fileID: 114681645329612942, guid: 3cfe6f7ec69d84742920c56070d6c4db,
-        type: 2}
-      propertyPath: RotateSpeed
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 114681645329612942, guid: 3cfe6f7ec69d84742920c56070d6c4db,
-        type: 2}
-      propertyPath: DragSpeed
-      value: 30
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3cfe6f7ec69d84742920c56070d6c4db, type: 2}
   m_IsPrefabParent: 0
@@ -2710,7 +2658,7 @@ MonoBehaviour:
   spawnables:
   - {fileID: 4255687415534654, guid: 4ee967bff55874b04b69e037d0ed4222, type: 2}
   - {fileID: 4994399567194924, guid: 954ee9bc08b489e48937cf303fb35a1d, type: 2}
-  - {fileID: 4416140866075554, guid: 0d34cb8aef494ee42b8ebe66fcd0f6ab, type: 2}
+  - {fileID: 4575064242899222, guid: fb079dc6287665c46a28af4010bd820b, type: 2}
   - {fileID: 4188978670054664, guid: c87a6e3a54b8c7144b477c76117e2f8e, type: 2}
   - {fileID: 4039839632482624, guid: e7e605d9ac7a7de4e9c3c0c0c2bc0edd, type: 2}
   - {fileID: 4039839632482624, guid: bcc543ac50a365f409550932da16631f, type: 2}
