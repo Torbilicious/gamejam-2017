@@ -49,7 +49,7 @@ public class Tile : MonoBehaviour
 
     private void Update()
     {
-        if (Placeable.name.Contains("Sprinkler") && LevelManager.FireAlarmTriggered)
+        if (Placeable.transform.childCount > 0 && Placeable.transform.GetChild(0).name.Contains("Sprinkler") && LevelManager.FireAlarmTriggered)
         {
             onFire = 0;
             Water.SetActive(true);
