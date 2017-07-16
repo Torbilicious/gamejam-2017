@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IngameUIHandler : MonoBehaviour {
+public class IngameUIHandler : MonoBehaviour
+{
+    // Use this for initialization
+    private void Start()
+    {
+    }
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    // Update is called once per frame
+    private void Update()
+    {
+    }
 
     public void OnSelectItem1()
     {
@@ -26,7 +26,7 @@ public class IngameUIHandler : MonoBehaviour {
 
     public void OnSelectItem3()
     {
-        PlaceItem.Instance.selected = "Sprinkler";
+        PlaceItem.Instance.selected = "Placeable_Sprinkler";
     }
 
     public void OnSelectItem4()

@@ -11,7 +11,7 @@ public class Tile : MonoBehaviour
 
     [HideInInspector]
     [SerializeField]
-    public GameObject Placeable;
+    public GameObject Placeable, Water;
 
     [SerializeField]
     [Range(0, 1)]
@@ -38,6 +38,8 @@ public class Tile : MonoBehaviour
         new RunDirectionHelper();
         fire = GameObject.Find(gameObject.name + "/Fire");
         Placeable = GameObject.Find(gameObject.name + "/Placeable");
+        Water = GameObject.Find(gameObject.name + "/Water");
+        Water.SetActive(false);
     }
 
     private GameObject fire;
@@ -47,6 +49,12 @@ public class Tile : MonoBehaviour
 
     private void Update()
     {
+        if (Placeable.name.Contains("Sprinkler") && LevelManager.FireAlarmTriggered)
+        {
+            onFire = 0;
+            Water.SetActive(true);
+            Debug.Log("Water kills Fire!");
+        }
         if (fire != null) fire.SetActive(onFire > 0.05f);
         if (onFire > 0.05f && onFire < 1)
         {
@@ -193,8 +201,8 @@ public class Tile : MonoBehaviour
 
             Tile north = LevelModel.Instance.TryGetTile((int)this.gameObject.transform.position.z + 1, (int)this.gameObject.transform.position.x);
             Tile south = LevelModel.Instance.TryGetTile((int)this.gameObject.transform.position.z - 1, (int)this.gameObject.transform.position.x);
-            Tile east  = LevelModel.Instance.TryGetTile((int)this.gameObject.transform.position.z, (int)this.gameObject.transform.position.x + 1);
-            Tile west  = LevelModel.Instance.TryGetTile((int)this.gameObject.transform.position.z, (int)this.gameObject.transform.position.x - 1);
+            Tile east = LevelModel.Instance.TryGetTile((int)this.gameObject.transform.position.z, (int)this.gameObject.transform.position.x + 1);
+            Tile west = LevelModel.Instance.TryGetTile((int)this.gameObject.transform.position.z, (int)this.gameObject.transform.position.x - 1);
 
             if (north != null && north.HasInhouseObstacle()) directions[RunDirection.North] = false;
             if (south != null && south.HasInhouseObstacle()) directions[RunDirection.South] = false;

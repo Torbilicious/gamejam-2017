@@ -2,13 +2,14 @@
 
 public class CameraController : MonoBehaviour
 {
-    [SerializeField] private float _zoomSpeed = 10, _minFov = 40, _maxFov = 90;
+    [SerializeField]
+    private float _zoomSpeed = 10, _minFov = 40, _maxFov = 90;
 
-    [SerializeField] private Camera _cam;
+    [SerializeField]
+    private Camera _cam;
 
     private Quaternion _initalCamQuaternion;
     private Vector3 _initalCam;
-
 
     private Vector3 _rortateOrigin;
     public float RotateSpeed = 30.0f;
@@ -60,7 +61,7 @@ public class CameraController : MonoBehaviour
         Vector3 pos = Camera.main.ScreenToViewportPoint(Input.mousePosition - _dragOrigin);
         Vector3 move = new Vector3(
             pos.x * Time.deltaTime / Time.timeScale * DragSpeed,
-            0, pos.y * Time.deltaTime  / Time.timeScale * DragSpeed
+            0, pos.y * Time.deltaTime / Time.timeScale * DragSpeed
         );
 
         transform.Translate(move, Space.Self);
@@ -92,10 +93,10 @@ public class CameraController : MonoBehaviour
 
     private void ZoomCamera()
     {
-//        Cam.fieldOfView += -Input.GetAxis("Mouse ScrollWheel") * ZoomSpeed;
+        //        Cam.fieldOfView += -Input.GetAxis("Mouse ScrollWheel") * ZoomSpeed;
 
         _cam.transform.Translate(
-            Vector3.forward * Time.deltaTime  / Time.timeScale * Input.GetAxis("Mouse ScrollWheel") * _zoomSpeed
+            Vector3.forward * Time.deltaTime / Time.timeScale * Input.GetAxis("Mouse ScrollWheel") * _zoomSpeed
         );
 
         _cam.fieldOfView = Mathf.Clamp(_cam.fieldOfView, _minFov, _maxFov);

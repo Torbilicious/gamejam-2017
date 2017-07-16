@@ -9,7 +9,7 @@ public class Platform : MonoBehaviour
     // Use this for initialization
     private void Start()
     {
-#if WEBGL
+#if UNITY_WEBGL
         Destroy(exitBtn);
 #endif
         Screen.fullScreen = true;
