@@ -36,7 +36,6 @@ public class PlaceItem : MonoBehaviour
             //Highlight where to place
             RaycastHit hoverHit;
             Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hoverHit);
-            Debug.Log(hoverHit.transform.gameObject.name);
             if (hoverHit.transform.tag.Equals("ClickableTile"))
             {
                 if (hoverHit.transform.gameObject != hovering)
@@ -72,9 +71,17 @@ public class PlaceItem : MonoBehaviour
                 {
                     Debug.Log("Clickable was clicked!");
                     Tile tile = hit.transform.parent.GetComponent<Tile>();
-                    if (tile.Placeable.transform.childCount != 0) return;
+                    if (tile.Placeable.transform.childCount != 0)
+                    {
+                        if (hovering != null) hovering.GetComponent<Renderer>().material.mainTexture = tex_tile;
+                        return;
+                    }
                     Transform spawned = ModelStore.Instance.Get(selected);
-                    if (spawned == null) return;
+                    if (spawned == null)
+                    {
+                        if (hovering != null) hovering.GetComponent<Renderer>().material.mainTexture = tex_tile;
+                        return;
+                    }
                     spawned = Instantiate(spawned, tile.Placeable.transform);
 
                     Vector2 distanceFromTileCenter;
@@ -92,8 +99,8 @@ public class PlaceItem : MonoBehaviour
                     spawned.transform.localPosition = Vector3.zero;
                     playerMouseMode = PlayerMouseMode.FREE;
                     spawned.name = spawned.name.Replace("(Clone)", "");
-                    if (hovering != null) hovering.GetComponent<Renderer>().material.mainTexture = tex_tile;
                 }
+                if (hovering != null) hovering.GetComponent<Renderer>().material.mainTexture = tex_tile;
             }
         }
     }
