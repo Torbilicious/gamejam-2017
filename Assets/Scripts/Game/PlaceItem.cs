@@ -23,42 +23,77 @@ public class PlaceItem : MonoBehaviour
     }
 
     public GameObject itemButtons;
+    private GameObject hovering = null;
+
+    [SerializeField]
+    private Texture2D tex_tile, tex_tile_north, tex_tile_east, tex_tile_south, tex_tile_west;
 
     // Update is called once per frame
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0) && playerMouseMode == PlayerMouseMode.PLACING)
+        if (playerMouseMode == PlayerMouseMode.PLACING)
         {
-            new List<UnityEngine.UI.Button>(itemButtons.GetComponentsInChildren<UnityEngine.UI.Button>()).ForEach(b => b.interactable = true);
-            playerMouseMode = PlayerMouseMode.FREE;
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            Physics.Raycast(ray, out hit);
-            Debug.Log(hit.transform.gameObject.name);
-            if (hit.transform.tag.Equals("ClickableTile"))
+            //Highlight where to place
+            RaycastHit hoverHit;
+            Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hoverHit);
+            Debug.Log(hoverHit.transform.gameObject.name);
+            if (hoverHit.transform.tag.Equals("ClickableTile"))
             {
-                Debug.Log("Clickable was clicked!");
-                Tile tile = hit.transform.parent.GetComponent<Tile>();
-                if (tile.Placeable.transform.childCount != 0) return;
-                Transform spawned = ModelStore.Instance.Get(selected);
-                if (spawned == null) return;
-                spawned = Instantiate(spawned, tile.Placeable.transform);
-
-                Vector2 distanceFromTileCenter;
-                distanceFromTileCenter = new Vector3(hit.point.x - hit.transform.position.x, hit.point.z - hit.transform.position.z);
-                if (Mathf.Abs(distanceFromTileCenter.y) > Mathf.Abs(distanceFromTileCenter.x))
+                if (hoverHit.transform.gameObject != hovering)
                 {
-                    if (distanceFromTileCenter.y > 0) spawned.transform.localEulerAngles = Vector3.up * 0;
-                    else spawned.transform.localEulerAngles = Vector3.up * 180;
+                    if (hovering != null) hovering.GetComponent<Renderer>().material.mainTexture = tex_tile;
+                    hovering = hoverHit.transform.gameObject;
                 }
-                else
+                if (hovering != null)
                 {
-                    if (distanceFromTileCenter.x > 0) spawned.transform.localEulerAngles = Vector3.up * 90;
-                    else spawned.transform.localEulerAngles = Vector3.up * 270;
+                    Vector2 distanceFromTileCenter;
+                    distanceFromTileCenter = new Vector3(hoverHit.point.x - hoverHit.transform.position.x, hoverHit.point.z - hoverHit.transform.position.z);
+                    if (Mathf.Abs(distanceFromTileCenter.y) > Mathf.Abs(distanceFromTileCenter.x))
+                    {
+                        if (distanceFromTileCenter.y > 0) hovering.GetComponent<Renderer>().material.mainTexture = tex_tile_north;
+                        else hovering.GetComponent<Renderer>().material.mainTexture = tex_tile_south;
+                    }
+                    else
+                    {
+                        if (distanceFromTileCenter.x > 0) hovering.GetComponent<Renderer>().material.mainTexture = tex_tile_east;
+                        else hovering.GetComponent<Renderer>().material.mainTexture = tex_tile_west;
+                    }
                 }
-                spawned.transform.localPosition = Vector3.zero;
+            }
+            if (Input.GetMouseButtonDown(0) && playerMouseMode == PlayerMouseMode.PLACING)
+            {
+                new List<UnityEngine.UI.Button>(itemButtons.GetComponentsInChildren<UnityEngine.UI.Button>()).ForEach(b => b.interactable = true);
                 playerMouseMode = PlayerMouseMode.FREE;
-                spawned.name = spawned.name.Replace("(Clone)", "");
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit;
+                Physics.Raycast(ray, out hit);
+                Debug.Log(hit.transform.gameObject.name);
+                if (hit.transform.tag.Equals("ClickableTile"))
+                {
+                    Debug.Log("Clickable was clicked!");
+                    Tile tile = hit.transform.parent.GetComponent<Tile>();
+                    if (tile.Placeable.transform.childCount != 0) return;
+                    Transform spawned = ModelStore.Instance.Get(selected);
+                    if (spawned == null) return;
+                    spawned = Instantiate(spawned, tile.Placeable.transform);
+
+                    Vector2 distanceFromTileCenter;
+                    distanceFromTileCenter = new Vector3(hit.point.x - hit.transform.position.x, hit.point.z - hit.transform.position.z);
+                    if (Mathf.Abs(distanceFromTileCenter.y) > Mathf.Abs(distanceFromTileCenter.x))
+                    {
+                        if (distanceFromTileCenter.y > 0) spawned.transform.localEulerAngles = Vector3.up * 0;
+                        else spawned.transform.localEulerAngles = Vector3.up * 180;
+                    }
+                    else
+                    {
+                        if (distanceFromTileCenter.x > 0) spawned.transform.localEulerAngles = Vector3.up * 90;
+                        else spawned.transform.localEulerAngles = Vector3.up * 270;
+                    }
+                    spawned.transform.localPosition = Vector3.zero;
+                    playerMouseMode = PlayerMouseMode.FREE;
+                    spawned.name = spawned.name.Replace("(Clone)", "");
+                    if (hovering != null) hovering.GetComponent<Renderer>().material.mainTexture = tex_tile;
+                }
             }
         }
     }
