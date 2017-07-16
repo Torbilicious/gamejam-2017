@@ -39,7 +39,7 @@ GameObject:
   - component: {fileID: 4497574004326126}
   m_Layer: 0
   m_Name: Placeable_Chair
-  m_TagString: Untagged
+  m_TagString: Obstacle_Inhouse
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

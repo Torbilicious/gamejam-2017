@@ -190,8 +190,23 @@ public class Tile : MonoBehaviour
             {
                 directions[placeableDirection] = false;
             }
+
+            Tile north = LevelModel.Instance.TryGetTile((int)this.gameObject.transform.position.z + 1, (int)this.gameObject.transform.position.x);
+            Tile south = LevelModel.Instance.TryGetTile((int)this.gameObject.transform.position.z - 1, (int)this.gameObject.transform.position.x);
+            Tile east  = LevelModel.Instance.TryGetTile((int)this.gameObject.transform.position.z, (int)this.gameObject.transform.position.x + 1);
+            Tile west  = LevelModel.Instance.TryGetTile((int)this.gameObject.transform.position.z, (int)this.gameObject.transform.position.x - 1);
+
+            if (north != null && north.HasInhouseObstacle()) directions[RunDirection.North] = false;
+            if (south != null && south.HasInhouseObstacle()) directions[RunDirection.South] = false;
+            if (east != null && east.HasInhouseObstacle()) directions[RunDirection.East] = false;
+            if (west != null && west.HasInhouseObstacle()) directions[RunDirection.West] = false;
         }
         catch { }
         return directions;
+    }
+
+    public bool HasInhouseObstacle()
+    {
+        return Placeable.transform.childCount > 0 && Placeable.transform.GetChild(0).tag == "Obstacle_Inhouse";
     }
 }

@@ -251,7 +251,7 @@ public class Lemming : MonoBehaviour
                     _state = LemmingState.UsingFireExtinguisher;
                     Destroy(placeable.gameObject);
                     return;
-                case "Placeable_Placeable_Fire_Alarm_Button":
+                case "Placeable_Fire_Alarm_Button":
                     _placeableUseTimer = 1.0f;
                     _state = LemmingState.UsingFireAlarmButton;
                     return;
@@ -306,9 +306,9 @@ public class Lemming : MonoBehaviour
 
     private void HandleFireExtinguisher()
     {
-        for (int x = (int)_currentTile.transform.position.z - 1; x != (int)_currentTile.transform.position.z + 1; x++)
+        for (int x = (int)_currentTile.transform.position.z - 1; x <= (int)_currentTile.transform.position.z + 1; x++)
         {
-            for (int y = (int)_currentTile.transform.position.x - 1; y != (int)_currentTile.transform.position.x + 1; y++)
+            for (int y = (int)_currentTile.transform.position.x - 1; y <= (int)_currentTile.transform.position.x + 1; y++)
             {
                 Tile t = LevelModel.Instance.TryGetTile(x, y);
                 if (t != null)
