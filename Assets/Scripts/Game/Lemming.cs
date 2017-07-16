@@ -166,7 +166,7 @@ public class Lemming : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.name.StartsWith("Lemming"))
+        if(other.gameObject.name.StartsWith("Lemming") && _state == LemmingState.RunningToWaypoint)
             FindNextWaypoint(true);
     }
 
