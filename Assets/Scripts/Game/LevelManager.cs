@@ -42,6 +42,7 @@ public class LevelManager : MonoBehaviour
     public void ReloadLevel()
     {
         //SceneManager.LoadScene(LevelName, LoadSceneMode.Single);
+        Points = 0;
         Application.LoadLevel(Application.loadedLevel);
     }
 

@@ -27,8 +27,10 @@ public class PlaceItem : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && playerMouseMode == PlayerMouseMode.PLACING)
         {
+            new List<UnityEngine.UI.Button>(itemButtons.GetComponentsInChildren<UnityEngine.UI.Button>()).ForEach(b => b.interactable = true);
+            playerMouseMode = PlayerMouseMode.FREE;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             Physics.Raycast(ray, out hit);
