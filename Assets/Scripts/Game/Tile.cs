@@ -39,7 +39,7 @@ public class Tile : MonoBehaviour
         fire = GameObject.Find(gameObject.name + "/Fire");
         Placeable = GameObject.Find(gameObject.name + "/Placeable");
         Water = GameObject.Find(gameObject.name + "/Water");
-        Water.SetActive(false);
+        if (Water != null) Water.SetActive(false);
     }
 
     private GameObject fire;
