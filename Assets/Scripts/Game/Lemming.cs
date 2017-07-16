@@ -41,6 +41,8 @@ public class Lemming : MonoBehaviour
     private float _removeTimer;
     private float _placeableUseTimer;
 
+    private bool _speedBonus;
+
     /// <summary>
     /// The lemming is currently in this state.
     /// </summary>
@@ -74,6 +76,7 @@ public class Lemming : MonoBehaviour
         _currentTile = null;
         _nextTile = null;
         _removeTimer = 3.0f;
+        _speedBonus = false;
     }
 
     private void Update()
@@ -211,7 +214,7 @@ public class Lemming : MonoBehaviour
             LevelManager.Points++;
             Destroy(this.gameObject);
         }
-        float step = this.Speed * Time.deltaTime;
+        float step = this.Speed * Time.deltaTime * (_speedBonus ? 1.5f : 1.0f);
         transform.position = Vector3.MoveTowards(transform.position, targetPos, step);
 
         Vector3 relativePos = targetPos - this.gameObject.transform.position;
@@ -263,6 +266,10 @@ public class Lemming : MonoBehaviour
                     _placeableUseTimer = 0.5f;
                     _state = LemmingState.UsingExitLeft;
                     return;
+                case "Placeable_Firealarm":
+                    _placeableUseTimer = 0.0f;
+                    if(LevelManager.FireAlarmTriggered) _speedBonus = true;
+                    break;
             }
         }
 
