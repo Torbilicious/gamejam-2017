@@ -17,7 +17,7 @@ public class Tile : MonoBehaviour
     [Range(0, 1)]
     public float onFire;
 
-    private RunDirection placeableDirection;
+    public RunDirection placeableDirection;
 
     private bool HasPlaceable
     {

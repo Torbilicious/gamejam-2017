@@ -88,13 +88,29 @@ public class PlaceItem : MonoBehaviour
                     distanceFromTileCenter = new Vector3(hit.point.x - hit.transform.position.x, hit.point.z - hit.transform.position.z);
                     if (Mathf.Abs(distanceFromTileCenter.y) > Mathf.Abs(distanceFromTileCenter.x))
                     {
-                        if (distanceFromTileCenter.y > 0) spawned.transform.localEulerAngles = Vector3.up * 0;
-                        else spawned.transform.localEulerAngles = Vector3.up * 180;
+                        if (distanceFromTileCenter.y > 0)
+                        {
+                            tile.placeableDirection = RunDirection.North;
+                            spawned.transform.localEulerAngles = Vector3.up * 0;
+                        }
+                        else
+                        {
+                            tile.placeableDirection = RunDirection.South;
+                            spawned.transform.localEulerAngles = Vector3.up * 180;
+                        }
                     }
                     else
                     {
-                        if (distanceFromTileCenter.x > 0) spawned.transform.localEulerAngles = Vector3.up * 90;
-                        else spawned.transform.localEulerAngles = Vector3.up * 270;
+                        if (distanceFromTileCenter.x > 0)
+                        {
+                            tile.placeableDirection = RunDirection.East;
+                            spawned.transform.localEulerAngles = Vector3.up * 90;
+                        }
+                        else
+                        {
+                            tile.placeableDirection = RunDirection.West;
+                            spawned.transform.localEulerAngles = Vector3.up * 270;
+                        }
                     }
                     spawned.transform.localPosition = Vector3.zero;
                     playerMouseMode = PlayerMouseMode.FREE;
